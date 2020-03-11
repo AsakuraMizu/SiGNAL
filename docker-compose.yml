@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  cqhttp:
+    image: richardchien/cqhttp:latest
+    ports:
+      - "9000:9000"
+      - "5700:5700"
+    restart: unless-stopped
+    volumes:
+      - ./coolq/:/home/user/coolq/
+    environment:
+      VNC_PASSWD: 12345678
+      COOLQ_ACCOUNT: 3163316758
+      FORCE_ENV: "true"
+      CQHTTP_USE_HTTP: "true"
+      CQHTTP_HOST: "127.0.0.1"
+      CQHTTP_PORT: "5700"
+      CQHTTP_USE_WS_REVERSE: "true"
+      CQHTTP_WS_REVERSE_API_URL: "ws://172.17.0.1:8080/ws/api/"
+      CQHTTP_WS_REVERSE_EVENT_URL: "ws://172.17.0.1:8080/ws/event/"
+      CQHTTP_ACCESS_TOKEN: "rqyakioi"
+      CQHTTP_SECRET: "zayakioi"
