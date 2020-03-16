@@ -53,8 +53,8 @@ async def _(session: CommandSession):
             session.current_arg = str(time)
             await gag(session)
         else:
-            del has_bomb[session.ctx['group_id']]
             await session.send('恭喜拆弹成功www', at_sender=True)
+        del has_bomb[session.ctx['group_id']]
     else:
         await session.send('没炸弹拆你🐴呢', at_sender=True)
 
