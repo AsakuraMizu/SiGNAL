@@ -5,11 +5,12 @@ from nonebot import on_request, RequestSession
 
 @on_command('help')
 async def _(session: CommandSession):
-    await session.send('qwq', at_sender=True)
+    await session.send('我很可爱请给我钱', at_sender=True)
 
 @on_request('group')
 async def _(session: RequestSession):
-    await session.approve()
+    if session.ctx['sub_type'] == 'invite':
+        await session.approve()
 
 @on_request('friend')
 async def _(session: RequestSession):

@@ -27,6 +27,8 @@ has_bomb = {}
 
 @on_command('bomb')
 async def _(session: CommandSession):
+    if not session.ctx['message_type'] == 'group':
+        return
     global has_bomb
     if has_bomb.get(session.ctx['group_id']):
         await session.send('🐴？？？还挂？？？')
@@ -40,6 +42,8 @@ async def _(session: CommandSession):
 
 @on_command('defuse')   
 async def _(session: CommandSession):
+    if not session.ctx['message_type'] == 'group':
+        return
     global has_bomb
     if has_bomb.get(session.ctx['group_id']):
         prob = random()
@@ -61,6 +65,8 @@ async def _(session: CommandSession):
 
 @on_natural_language
 async def _(session: NLPSession):
+    if not session.ctx['message_type'] == 'group':
+        return
     global has_bomb
     if not has_bomb.get(session.ctx['group_id']):
         return

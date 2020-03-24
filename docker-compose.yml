@@ -17,7 +17,6 @@ services:
       CQHTTP_HOST: "127.0.0.1"
       CQHTTP_PORT: "5700"
       CQHTTP_USE_WS_REVERSE: "true"
-      CQHTTP_WS_REVERSE_API_URL: "ws://172.17.0.1:8080/ws/api/"
-      CQHTTP_WS_REVERSE_EVENT_URL: "ws://172.17.0.1:8080/ws/event/"
+      CQHTTP_WS_REVERSE_URL: "ws://172.17.0.1:8080/ws/"
       CQHTTP_ACCESS_TOKEN: "rqyakioi"
       CQHTTP_SECRET: "zayakioi"
