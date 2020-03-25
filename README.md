@@ -1,17 +1,13 @@
-# src of SiGNAL酱
+# SiGNAL bot
 
-## setup
+## Start
 
-**We suggest to use virtualenv. If u decide to use it, plz refer to the document of virtualenv.**
+```bash
+docker-compose up -d
+```
 
-Modify the variables in `docker-compose.yml` as u like, and update part `CoolQ` of `config.py` synchronously.  
-Then type `docker-compose up -d` in your terminal.
-Open [http://127.0.0.1:9000](http://127.0.0.1:9000) in your browser and follow the steps to login your bot's QQ.
+That's all.
 
-Install Redis if u have not. Remember to update part `Redis` of `config.py`.
+## Note
 
-Install the requirements in 'requirements.txt' by `pip install -r requirements.txt`.
-
-Modify the variables in part `General` of `config.py` freely.
-
-Then just run `bot.py`.
+If you are not in mainland China, you can replace `pypi.tuna.tsinghua.edu.cn` with `pypi.org` in `Pipfile` and delete `-i https://pypi.tuna.tsinghua.edu.cn/simple` in `Dockerfile`.
