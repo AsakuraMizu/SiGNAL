@@ -1,11 +1,10 @@
-from nonebot import on_command, CommandSession, logger
+from nonebot import on_command, CommandSession
 from motor.motor_asyncio import AsyncIOMotorClient
 
-from config import MONGO_URL, MONGO_DB
+from utils import get_coll, sender
 
 
-def getcoll():
-    return AsyncIOMotorClient(MONGO_URL)[MONGO_DB]['todo']
+getcoll = lambda: get_coll('todo')
 
 async def rm(user, todo):
     coll = getcoll()
@@ -65,54 +64,54 @@ async def _(session: CommandSession):
     args = session.argv
     op = session.ctx['user_id']
     if len(args) == 0:
-        await session.send('Plz use \'?todo help\' for more.', at_sender=True)
+        await sender(session, 'Plz use \'?todo help\' for more.')
     elif args[0] == 'a' or args[0] == 'add':
         if len(args) < 2:
-            await session.send('Usage: ?todo a(dd) <TODO> [status]', at_sender=True)
+            await sender(session, 'Usage: ?todo a(dd) <TODO> [status]')
         elif len(args) == 2:
             res = await add(op, args[1], 'WIP')
-            await session.send(res, at_sender=True)
+            await sender(session, res)
         else:
             res = await add(op, args[1], session.current_arg_text.split(args[1], 1)[1].strip())
-            await session.send(res, at_sender=True)
+            await sender(session, res)
     elif args[0] == 'rm' or args[0] == 'del' or args[0] == 'd':
         if len(args) < 2:
-            await session.send('Usage: ?todo rm|d(el) <TODO>', at_sender=True)
+            await sender(session, 'Usage: ?todo rm|d(el) <TODO>')
         else:
             res = await rm(op, args[1])
-            await session.send(res, at_sender=True)
+            await sender(session, res)
     elif args[0] == 'rma' or args[0] == 'dela' or args[0] == 'da':
         res = await rma(op)
-        await session.send(res, at_sender=True)
+        await sender(session, res)
     elif args[0] == 'list' or args[0] == 'ls':
         res = await geta(op)
-        await session.send(res, at_sender=True)
+        await sender(session, res)
     elif args[0] == 'get':
         if len(args) < 2:
-            await session.send('Usage: ?todo get <TODO>', at_sender=True)
+            await sender(session, 'Usage: ?todo get <TODO>')
         else:
             res = await get(op, args[1])
-            await session.send(res, at_sender=True)
+            await sender(session, res)
     elif args[0] == 'set':
         if len(args) < 3:
-            await session.send('Usage: ?todo set <TODO> <status>', at_sender=True)
+            await sender(session, 'Usage: ?todo set <TODO> <status>')
         else:
             res = await mod(op, args[1], session.current_arg_text.split(args[1], 1)[1].strip())
-            await session.send(res, at_sender=True)
+            await sender(session, res)
     elif args[0] == 'done':
         if len(args) < 2:
-            await session.send('Usage: ?todo done <TODO>', at_sender=True)
+            await sender(session, 'Usage: ?todo done <TODO>')
         else:
             res = await mod(op, args[1], 'done')
-            await session.send(res, at_sender=True)
+            await sender(session, res)
     elif args[0] == 'gu':
         if len(args) < 2:
-            await session.send('Usage: ?todo gu <TODO>', at_sender=True)
+            await sender(session, 'Usage: ?todo gu <TODO>')
         else:
             res = await mod(op, args[1], 'WIP')
-            await session.send(res, at_sender=True)
+            await sender(session, res)
     elif args[0] == 'help':
-        await session.send('''
+        await sender(session, '''
 Usage:
 ?todo a(dd) <TODO> [status]
 ?todo rm|d(el) <TODO>
@@ -122,6 +121,6 @@ Usage:
 ?todo set <TODO> <status>
 ?todo done <TODO>
 ?todo gu <TODO>
-?todo help''', at_sender=True)
+?todo help''')
     else:
-        await session.send('Plz use \'?todo help\' for more.', at_sender=True)
+        await sender(session, 'Plz use \'?todo help\' for more.')

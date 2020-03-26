@@ -1,24 +1,21 @@
 from motor.motor_asyncio import AsyncIOMotorClient
-from nonebot import on_command, CommandSession
-from nonebot import message_preprocessor, NoneBot, aiocqhttp
+from nonebot import on_command, CommandSession, message_preprocessor, NoneBot, aiocqhttp
 from nonebot.argparse import ArgumentParser
 from random import randint
 from re import escape
 
-from config import MONGO_URL, MONGO_DB
-from utils import sender
+from utils import get_coll, sender
 
 
 def _gen(cmd: str, name: str, rec: list):
-    def getcoll():
-        return AsyncIOMotorClient(MONGO_URL)[MONGO_DB][cmd]
+    getcoll = lambda: get_coll(cmd)
 
     @message_preprocessor
     async def _(bot: NoneBot, event: aiocqhttp.Event):
         for user in rec:
             if event.user_id == user['qq']:
                 coll = getcoll()
-                await coll.insert_one({'name': user['name'], 'content': event.message})
+                await coll.insert_one({'name': user['name'], 'content': event.raw_message})
                 break
 
     async def rand(args):
