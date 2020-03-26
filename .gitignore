@@ -110,3 +110,8 @@ venv.bak/
 .idea
 .vscode
 dev
+
+# ----- Runtime -----
+
+/coolq
+/mongo

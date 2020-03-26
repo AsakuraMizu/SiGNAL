@@ -4,21 +4,27 @@ services:
 
   cqhttp:
     image: richardchien/cqhttp:latest
+    env_file: .env
     ports:
-      - 9000:9000
+      - ${VNC_PORT}:9000
     restart: unless-stopped
+    volumes:
+      - ./coolq:/home/user/coolq
     environment:
-      VNC_PASSWD: 12345678
-      COOLQ_ACCOUNT: 3163316758
       FORCE_ENV: "true"
       CQHTTP_USE_HTTP: "false"
       CQHTTP_USE_WS: "false"
       CQHTTP_USE_WS_REVERSE: "true"
-      CQHTTP_WS_REVERSE_API_URL: ws://signal_bot:8080/ws/api/
-      CQHTTP_WS_REVERSE_EVENT_URL: ws://signal_bot:8080/ws/event/
+      CQHTTP_WS_REVERSE_API_URL: ws://${WS_REVERSE_HOST}:${WS_REVERSE_PORT}/ws/api/
+      CQHTTP_WS_REVERSE_EVENT_URL: ws://${WS_REVERSE_HOST}:${WS_REVERSE_PORT}/ws/event/
 
   signal_bot:
     build: .
+    env_file: .env
     restart: unless-stopped
-    environment:
-      TZ: "Asia/Shanghai"
+
+  db:
+    image: mongo
+    restart: unless-stopped
+    volumes:
+      - ./mongo:/data/db
