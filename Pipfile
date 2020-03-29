@@ -1,15 +1,20 @@
 [[source]]
 name = "pypi"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+pylint = "*"
 
 [packages]
 apscheduler = "*"
 nonebot = {extras = ["scheduler"],version = "*"}
 motor = "*"
 hypercorn = "*"
+psutil = "*"
+
+[scripts]
+start = "hypercorn bot:app -b 0.0.0.0:8080"
 
 [requires]
 python_version = "3.8"

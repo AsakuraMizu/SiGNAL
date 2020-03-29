@@ -3,7 +3,7 @@ version: '3'
 services:
 
   cqhttp:
-    image: richardchien/cqhttp:latest
+    image: richardchien/cqhttp:4.14.1
     env_file: .env
     ports:
       - ${VNC_PORT}:9000
@@ -15,11 +15,14 @@ services:
       CQHTTP_USE_HTTP: "false"
       CQHTTP_USE_WS: "false"
       CQHTTP_USE_WS_REVERSE: "true"
-      CQHTTP_WS_REVERSE_API_URL: ws://${WS_REVERSE_HOST}:${WS_REVERSE_PORT}/ws/api/
-      CQHTTP_WS_REVERSE_EVENT_URL: ws://${WS_REVERSE_HOST}:${WS_REVERSE_PORT}/ws/event/
+      CQHTTP_WS_REVERSE_API_URL: ws://${WS_REVERSE_HOST}:${NONEBOT_PORT}/ws/api/
+      CQHTTP_WS_REVERSE_EVENT_URL: ws://${WS_REVERSE_HOST}:${NONEBOT_PORT}/ws/event/
 
-  signal_bot:
+  nonebot:
     build: .
+    restart: unless-stopped
+    ports:
+      - ${NONEBOT_PORT}:${NONEBOT_PORT}
     env_file: .env
     restart: unless-stopped
 

@@ -1,6 +1,10 @@
 FROM python
 
-RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pipenv
+# Uncomment these two lines if you are in mainland China.
+RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+ENV PIPENV_PYPI_MIRROR https://pypi.tuna.tsinghua.edu.cn/simple
+
+RUN pip install pipenv
 
 COPY . /app
 

@@ -1,0 +1,7 @@
+.vscode/
+
+coolq/
+mongo/
+
+Dockerfile
+docker-compose.yml

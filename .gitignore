@@ -113,6 +113,6 @@ dev
 
 # ----- Runtime -----
 
-/coolq
-/mongo
+coolq/
+mongo/
 config.py

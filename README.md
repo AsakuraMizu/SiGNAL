@@ -21,4 +21,4 @@ That's all.
 
 ## Note
 
-I have configure `Pipfile` and `Dockerfile` suitable for Chinese users. If you are not in mainland China, you need to reconfigure these two files manually. Don't forget to use `pipenv lock`.
+We suggest you to comment L4 and L5 of `Dockerfile` if you are not in mainland China.
