@@ -21,7 +21,7 @@ async def _():
         await get_bot().send_group_msg(group_id=REPORT_GROUP, message='/x stat')
         await asyncio.sleep(1.5)
         await get_bot().send_group_msg(group_id=REPORT_GROUP, message='软——糖——酱——')
-    await get_bot().send_group_msg(group_id=TEST_GROUP, message='/x help')
+    await get_bot().send_group_msg(group_id=TEST_GROUP, message='/x stat')
     logger.info('[LxBot Checker] Checking status now. Waiting for response.')
     flag = False
 
