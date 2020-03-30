@@ -12,6 +12,8 @@ nonebot = {extras = ["scheduler"],version = "*"}
 motor = "*"
 hypercorn = "*"
 psutil = "*"
+ujson = "*"
+msgpack = "*"
 
 [scripts]
 start = "hypercorn bot:app -b 0.0.0.0:8080"
