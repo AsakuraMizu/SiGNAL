@@ -16,10 +16,10 @@ async def _():
     global flag
     if not flag:
         logger.warning('[LxBot Checker] No LxBot currently online.')
-        await get_bot().send_group_msg(group_id=REPORT_GROUP, message=msgs.at(AT_QQ) + msgs.text('lxlx，软糖酱炸了'))
-        await asyncio.sleep(1)
+        await get_bot().send_group_msg(group_id=REPORT_GROUP, message=msgs.at(AT_QQ) + msgs.text(' lxlx，软糖酱炸了'))
+        await asyncio.sleep(3)
         await get_bot().send_group_msg(group_id=REPORT_GROUP, message='/x stat')
-        await asyncio.sleep(1.5)
+        await asyncio.sleep(5)
         await get_bot().send_group_msg(group_id=REPORT_GROUP, message='软——糖——酱——')
     await get_bot().send_group_msg(group_id=TEST_GROUP, message='/x stat')
     logger.info('[LxBot Checker] Checking status now. Waiting for response.')
