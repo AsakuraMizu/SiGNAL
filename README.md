@@ -21,4 +21,4 @@ That's all.
 
 ## Note
 
-We suggest you to comment L4 and L5 of `Dockerfile` if you are not in mainland China.
+We suggest you to comment L3 of `Dockerfile` if you are not in mainland China.

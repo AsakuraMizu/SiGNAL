@@ -94,10 +94,10 @@
         },
         "hstspreload": {
             "hashes": [
-                "sha256:77bb344a034f806f8c4d260f571e4a652b38b4276db1d608d0b6db7201ce95f1",
-                "sha256:9631272f7078f5aee322e54fdd84ec9006db701804126c4aebf3f7d2abb74153"
+                "sha256:0aa4c2ebb768a11109f4d2008b3fce987adaef2de584b93a48756847ec84403c",
+                "sha256:e6b87847b1250c30e67bf68925d5e78b987d4be3fb61f921cdcd8ccea7dd4342"
             ],
-            "version": "==2020.3.25"
+            "version": "==2020.3.31"
         },
         "httpx": {
             "hashes": [
@@ -108,11 +108,11 @@
         },
         "hypercorn": {
             "hashes": [
-                "sha256:a146146a48f658f5dca32841f3eb866d67b15cb3007ab125b96037272f1f2f84",
-                "sha256:be7b31d869ad8da11c9737894a952cdf28b570f86bac319ba2e61c257b9d6873"
+                "sha256:35bec0a3b07ec1f77b712763e8ecf307814b17a67607600bbf5d44174b8d9aaa",
+                "sha256:940cc9492a24413937bfa910a1580bbff69db51c5bf771e722b89848a54c5786"
             ],
             "index": "pypi",
-            "version": "==0.9.3"
+            "version": "==0.9.4"
         },
         "hyperframe": {
             "hashes": [
@@ -314,10 +314,10 @@
         },
         "quart": {
             "hashes": [
-                "sha256:b04a644a3095a6a229611dafaafd96922bf4b4440261701adf4bdbaaa4393b3a",
-                "sha256:e53450511a591e260e339163e32ce5064d4cc9074ad2508739c53872d4afd468"
+                "sha256:187427d1a2d7fed20dcb825dddbe20fd971efd7ec413639f95d2e28ff59a0cb1",
+                "sha256:bd93650fa856dcfbc3890952ab3ca53f7755ab506d453a209db63713eceeceda"
             ],
-            "version": "==0.11.4"
+            "version": "==0.11.5"
         },
         "rfc3986": {
             "hashes": [
@@ -384,10 +384,10 @@
         },
         "werkzeug": {
             "hashes": [
-                "sha256:169ba8a33788476292d04186ab33b01d6add475033dfc07215e6d219cc077096",
-                "sha256:6dc65cf9091cf750012f56f2cad759fa9e879f511b5ff8685e456b4e3bf90d16"
+                "sha256:2de2a5db0baeae7b2d2664949077c2ac63fbd16d98da0ff71837f7d1dea3fd43",
+                "sha256:6c80b1e5ad3665290ea39320b91e1be1e0d5f60652b964a3070216de83d2e47c"
             ],
-            "version": "==1.0.0"
+            "version": "==1.0.1"
         },
         "wsproto": {
             "hashes": [

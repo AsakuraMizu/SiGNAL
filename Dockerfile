@@ -1,15 +1,16 @@
 FROM python
 
-# Uncomment these two lines if you are in mainland China.
-RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-ENV PIPENV_PYPI_MIRROR https://pypi.tuna.tsinghua.edu.cn/simple
+RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple && export PIPENV_PYPI_MIRROR=https://pypi.tuna.tsinghua.edu.cn/simple
 
 RUN pip install pipenv
 
-COPY . /app
-
 WORKDIR /app
 
-RUN set -ex && pipenv install --deploy --system
+COPY Pipfile* /app/
+
+RUN pipenv lock --requirements | sed "1 d" > requirements.txt
+RUN pip install -r requirements.txt
+
+COPY . /app
 
 CMD pipenv run start
