@@ -1,4 +1,5 @@
 from nonebot import on_command, CommandSession
+from nonebot.log import logger
 
 from utils import sender
 
@@ -9,16 +10,20 @@ async def _(session: CommandSession):
     try:
         num = int(arg)
         def getMinDiv(num):
-            for i in RNUMS.keys():
-                if i > num:
+            for i in NUMS.keys():
+                if num > i:
                     return i
         def demolish(num):
             if num < 0:
                 return f"-({demolish(-num)})"
+            if num in NUMS:
+                return NUMS[num]
             div = getMinDiv(num)
-            return f"{div}*({demolish(num // div)})+({demolish(num % div)})".replace('\*\(1\)', '')
-    except:
-        sender(session, '[恶臭数字论证器](灵感来自 https://github.com/itorr/homo )\n使用方法: ?homo <number>')
+            return f"{NUMS[div]}*({demolish(num // div)})+({demolish(num % div)})".replace('\*\(1\)', '')
+        await sender(session, '计算结果：' + demolish(num))
+    except Exception as e:
+        logger.exception(e)
+        await sender(session, '[恶臭数字论证器](灵感来自 https://github.com/itorr/homo )\n使用方法: ?homo <number>')
 
 
 NUMS = {
@@ -542,5 +547,3 @@ NUMS = {
     1: "11/(45-1)*4",
     0: "(1-1)*4514"
 }
-
-RNUMS = dict(list(NUMS.items())[::-1])
