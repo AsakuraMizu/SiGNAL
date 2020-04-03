@@ -3,7 +3,7 @@ version: '3'
 services:
 
   cqhttp:
-    image: richardchien/cqhttp:4.14.1
+    image: richardchien/cqhttp
     env_file: .env
     ports:
       - ${VNC_PORT}:9000
@@ -12,6 +12,7 @@ services:
       - ./coolq:/home/user/coolq
     environment:
       FORCE_ENV: "true"
+      CQHTTP_SHOW_LOG_CONSOLE: "false"
       CQHTTP_USE_HTTP: "false"
       CQHTTP_USE_WS: "false"
       CQHTTP_USE_WS_REVERSE: "true"
