@@ -1,0 +1,17 @@
+{
+  "name": "signal.solariar.tech",
+  "private": true,
+  "version": "1.0.0",
+  "author": "water_lift <2677294549@qq.com>",
+  "license": "MIT",
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "devDependencies": {
+    "@vuepress/plugin-back-to-top": "^1.4.0",
+    "vuepress": "^1.4.0",
+    "vuepress-plugin-mathjax": "^1.2.8",
+    "vuepress-plugin-zooming": "^1.1.7"
+  }
+}
