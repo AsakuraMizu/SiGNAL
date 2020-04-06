@@ -2,7 +2,7 @@ from nonebot import on_command, CommandSession
 import platform
 import psutil
 
-from utils import sender, get_size
+from utils import get_size
 
 
 @on_command('status')
@@ -21,7 +21,7 @@ async def _(session: CommandSession):
     plugin_build_configuration = version_info['plugin_build_configuration']
     res += 'HTTP API: {}-{}-{}\n'.format(plugin_version, plugin_build_number, plugin_build_configuration)
 
-    await sender(session, res)
+    await session.sender(res)
 
 @on_command('sysinfo')
 async def _(session: CommandSession):
@@ -45,4 +45,4 @@ async def _(session: CommandSession):
         except:
             pass
         res += '\n'
-    await sender(session, res)
+    await session.sender(res)

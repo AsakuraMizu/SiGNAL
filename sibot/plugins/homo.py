@@ -1,8 +1,6 @@
 from nonebot import on_command, CommandSession
 from nonebot.log import logger
 
-from utils import sender
-
 
 @on_command('homo')
 async def _(session: CommandSession):
@@ -20,11 +18,10 @@ async def _(session: CommandSession):
                 return NUMS[num]
             div = getMinDiv(num)
             return f"{NUMS[div]}*({demolish(num // div)})+({demolish(num % div)})".replace('\*\(1\)', '')
-        await sender(session, '计算结果：' + demolish(num))
+        await session.sender('计算结果：' + demolish(num))
     except Exception as e:
         logger.exception(e)
-        await sender(session, '[恶臭数字论证器](灵感来自 https://github.com/itorr/homo )\n使用方法: ?homo <number>')
-
+        await session.sender('[恶臭数字论证器](灵感来自 https://github.com/itorr/homo )\n使用方法: ?homo <number>')
 
 NUMS = {
     114514: "114514",

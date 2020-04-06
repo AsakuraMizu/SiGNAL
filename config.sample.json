@@ -1,0 +1,15 @@
+{
+    "db": {
+        "host": "db",
+        "port": 27017,
+        "user": "",
+        "password": "",
+        "name": "bot"
+    },
+    "nonebot": {
+        "superusers": [],
+        "nickname": "SiGNAL酱",
+        "command_start": "/",
+        "debug": false
+    }
+}

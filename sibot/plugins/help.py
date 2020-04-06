@@ -1,12 +1,10 @@
 from nonebot import on_command, CommandSession
 from nonebot import on_notice, NoticeSession
 
-from utils import sender
-
 
 @on_command('help')
 async def _(session: CommandSession):
-    await sender(session, 'SiGNAL酱是一个免费、开源的QQ机器人，主要服务于开发人员，能够提供许多专业需求。当然SiGNAL酱也提供了一些其他的功能，详见 https://signal.solariar.tech/')
+    await session.sender('SiGNAL酱是一个免费、开源的QQ机器人，主要服务于开发人员，能够提供许多专业需求。当然SiGNAL酱也提供了一些其他的功能，详见 https://signal.solariar.tech/')
 
 
 @on_notice('group_increase')

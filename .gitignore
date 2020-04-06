@@ -189,6 +189,6 @@ dev
 
 # ----- Runtime -----
 
-coolq/
-mongo/
-config.py
+coolq
+mongo
+config.json

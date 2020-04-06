@@ -1,7 +1,9 @@
-.vscode/
-
-coolq/
-mongo/
-
-Dockerfile
-docker-compose.yml
+.vscode
+.env
+.env.*
+node_modules
+.DS_Store
+*.swp
+*~
+coolq
+mongo

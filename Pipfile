@@ -14,9 +14,10 @@ hypercorn = "*"
 psutil = "*"
 ujson = "*"
 msgpack = "*"
+json-config = "*"
 
 [scripts]
-start = "hypercorn bot:app -b 0.0.0.0:8080"
+start = "hypercorn bot:app -b 0.0.0.0:$NONEBOT_PORT"
 
 [requires]
 python_version = "3.8"
