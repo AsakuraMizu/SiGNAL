@@ -17,6 +17,11 @@ for k, v in uconf['nonebot'].items():
 
 nonebot.init(_conf)
 
+import re
+for p in uconf['plugins']:
+    p = re.sub('^@', 'sibot.plugins.', p)
+    nonebot.load_plugin(p)
+
 app = nonebot.get_bot().asgi
 
 def run():

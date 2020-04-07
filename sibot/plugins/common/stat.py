@@ -2,7 +2,7 @@ from nonebot import on_command, CommandSession
 import platform
 import psutil
 
-from utils import get_size
+from sibot.utils import get_size
 
 
 @on_command('status')

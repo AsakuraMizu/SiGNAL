@@ -11,5 +11,8 @@
         "nickname": "SiGNAL酱",
         "command_start": "/",
         "debug": false
-    }
+    },
+    "plugins": [
+        "@common"
+    ]
 }
