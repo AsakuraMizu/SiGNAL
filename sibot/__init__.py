@@ -3,6 +3,8 @@ import sibot.addons
 
 from json_config import connect
 uconf = connect('config.json')
+uconf.serializer_indent = 4
+uconf.serializer_sort_keys = False
 
 from nonebot import default_config as _conf
 
