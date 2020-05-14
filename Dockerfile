@@ -1,4 +1,4 @@
-FROM python:alpine
+FROM python
 
 RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple && export PIPENV_PYPI_MIRROR=https://pypi.tuna.tsinghua.edu.cn/simple
 
