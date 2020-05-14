@@ -25,11 +25,11 @@
         },
         "aiomirai": {
             "hashes": [
-                "sha256:ca4694214a14139ac8381dc5374e43c4c9b7225f3666410c42583842cc6ccb41",
-                "sha256:f2d10166a9840af38c7808824a2509d26ba1dc9830a3dfb0c262be23e72a019e"
+                "sha256:53b5a433adcd3262fee7e8237552f72f4d907f750441015cb338d1bc1c94f2a3",
+                "sha256:bef3047421c6cee1bf9c794a81309ef8294fc75d79c64779fa4b6c75b2d677be"
             ],
             "index": "pypi",
-            "version": "==0.3.2"
+            "version": "==0.3.4"
         },
         "blinker": {
             "hashes": [
@@ -409,10 +409,10 @@
         },
         "toml": {
             "hashes": [
-                "sha256:229f81c57791a41d65e399fc06bf0848bab550a9dfd5ed66df18ce5f05e73d5c",
-                "sha256:235682dd292d5899d361a811df37e04a8828a5b1da3115886b73cf81ebc9100e"
+                "sha256:926b612be1e5ce0634a2ca03470f95169cf16f939018233a670519cb4ac58b0f",
+                "sha256:bda89d5935c2eac546d648028b9901107a595863cb36bae0c73ac804a9b4ce88"
             ],
-            "version": "==0.10.0"
+            "version": "==0.10.1"
         },
         "typing-extensions": {
             "hashes": [
@@ -509,10 +509,10 @@
         },
         "toml": {
             "hashes": [
-                "sha256:229f81c57791a41d65e399fc06bf0848bab550a9dfd5ed66df18ce5f05e73d5c",
-                "sha256:235682dd292d5899d361a811df37e04a8828a5b1da3115886b73cf81ebc9100e"
+                "sha256:926b612be1e5ce0634a2ca03470f95169cf16f939018233a670519cb4ac58b0f",
+                "sha256:bda89d5935c2eac546d648028b9901107a595863cb36bae0c73ac804a9b4ce88"
             ],
-            "version": "==0.10.0"
+            "version": "==0.10.1"
         },
         "wrapt": {
             "hashes": [
