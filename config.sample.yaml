@@ -1,0 +1,30 @@
+# global
+debug: false
+admin: []
+
+# api
+api_root: http://localhost:8080
+auth_key: REPLACE_IT
+qq: 123456
+
+# receiver
+host: 0.0.0.0
+port: 5000
+endpoint: /mirai
+
+# command
+prefix:
+  - /
+  - 、
+
+# db
+mongo:
+  host: db
+  port: 27017
+  username:
+  password:
+  db: bot
+
+# plugins
+plugins:
+  - '@common'
