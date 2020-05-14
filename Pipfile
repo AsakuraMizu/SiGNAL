@@ -17,5 +17,8 @@ psutil = "*"
 matplotlib = "*"
 httpx = "*"
 
+[scripts]
+start = "python bot.py"
+
 [requires]
 python_version = "3.8"
