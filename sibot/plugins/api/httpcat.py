@@ -11,6 +11,9 @@ async def _(session: CommandSession):
     if not q:
         await session.reply(f'[cat] 用法：{session.prefix}{session.name} <http_code>\n（图片均来自 https://http.cat/）')
         return
+    if not q.isdigit():
+        await session.reply(f'你家 HTTP 协议会返回 {q}？？？')
+        return
     async with AsyncClient() as client:
         resp = await client.get(f'https://cdn.jsdelivr.net/gh/httpcats/http.cat/public/images/{q}.jpg')
     if resp.status_code == 404:

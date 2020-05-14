@@ -22,7 +22,7 @@ async def _(session: CommandSession):
             if level == 'bot_admin':
                 await session.reply('Due to security problem, u can only mod admins in config file')
                 return
-            if level not in ('banned', 'bot_helper', 'contributor'):
+            if level not in ('banned', 'bot_helper', 'bot_sponsor'):
                 await session.reply('哪来的这个标记（恼）')
                 return
         except (ValueError, AssertionError):

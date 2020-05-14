@@ -9,9 +9,9 @@ def only(
 ) -> Callable[[CommandSession], Awaitable[Any]]:
     @wraps(func)
     async def wrapper(session: CommandSession):
-        if not await check_perm(session.event, {Perm.contributor}) or \
+        if not await check_perm(session.event, {Perm.bot_sponsor}) and \
                 not await check_perm(session.event, {Perm.bot_helper}):
-            await session.reply('Permission Denied：您不是 Bot 贡献者或协助者')
+            await session.reply('Permission Denied：您不是 Bot 赞助者或协助者')
         else:
             return await func(session)
     return wrapper

@@ -16,7 +16,7 @@ class Perm(Enum):
     friend = 3
     group_admin = 4
     group_owner = 5
-    contributor = 100
+    bot_sponsor = 100
     bot_helper = 1000
     bot_admin = 10000
 
@@ -29,8 +29,8 @@ async def _query_perm(qq: int) -> Set[Perm]:
         return res
     if result.get('banned'):
         res.add(Perm.banned)
-    if result.get('contributor'):
-        res.add(Perm.contributor)
+    if result.get('bot_sponsor'):
+        res.add(Perm.bot_sponsor)
     if result.get('bot_helper'):
         res.add(Perm.bot_helper)
         res.add(Perm.group_admin)
@@ -56,7 +56,7 @@ async def _get_perm(event: Event) -> Set[Perm]:
     if sender['id'] in get_conf()['admin']:
         res.add(Perm.bot_admin)
         res.add(Perm.bot_helper)
-        res.add(Perm.contributor)
+        res.add(Perm.bot_sponsor)
         res.add(Perm.group_admin)
         res.add(Perm.group_owner)
     if event['type'] == 'TempMessage':
