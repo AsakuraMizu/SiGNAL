@@ -9,7 +9,7 @@ from .log import logger
 
 def load_plugin(name: str, config: Optional[Dict[str, Any]] = None) -> bool:
     module = None
-    for import_name in [name, f'sibot.plugins.{name}', f'plugins.{name}']:
+    for import_name in [name, f'sibot.builtin.{name}', f'external.{name}']:
         try:
             module = importlib.import_module(import_name)
             logger.info('Succeed to import "%s"', import_name)

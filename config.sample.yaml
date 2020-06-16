@@ -28,3 +28,4 @@ mongo:
 # plugins
 plugins:
   - common
+  - admin
