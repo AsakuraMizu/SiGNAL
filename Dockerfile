@@ -1,7 +1,5 @@
 FROM python
 
-RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple
-
 WORKDIR /app
 
 COPY requirements.txt /app/
