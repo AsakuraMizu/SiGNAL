@@ -1,39 +1,42 @@
 aiofiles==0.5.0
-aiomirai==0.3.4
+aiomirai==0.3.6
+apscheduler==3.6.3
 blinker==1.4
-certifi==2020.4.5.1
+certifi==2020.4.5.2
 chardet==3.0.4
-click==7.1.2
+click==7.1.2; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
 contextlib2==0.6.0.post1
 cycler==0.10.0
 h11==0.9.0
 h2==3.2.0
 hpack==3.0.0
-hstspreload==2020.5.13
-httpx==0.12.1
-hypercorn==0.9.5
+hstspreload==2020.6.9; python_version >= '3.6'
+httpcore==0.9.1; python_version >= '3.6'
+httpx==0.13.3
+hypercorn==0.10.1; python_version >= '3.7'
 hyperframe==5.2.0
-idna==2.9
-itsdangerous==1.1.0
-jinja2==2.11.2
-kiwisolver==1.2.0
-markupsafe==1.1.1
+idna==2.9; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
+itsdangerous==1.1.0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
+jinja2==2.11.2; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
+kiwisolver==1.2.0; python_version >= '3.6'
+markupsafe==1.1.1; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
 matplotlib==3.2.1
 motor==2.1.0
-numpy==1.18.4
+numpy==1.18.5; python_version >= '3.5'
 priority==1.3.0
 psutil==5.7.0
 pymongo==3.10.1
-pyparsing==2.4.7
+pyparsing==2.4.7; python_version >= '2.6' and python_version not in '3.0, 3.1, 3.2'
 python-dateutil==2.8.1
+pytz==2020.1
 pyyaml==5.3.1
-quart==0.11.5
+quart==0.12.0
 rfc3986==1.4.0
 schema==0.7.2
-six==1.14.0
+six==1.15.0; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2'
 sniffio==1.1.0
 toml==0.10.1
 typing-extensions==3.7.4.2
-urllib3==1.25.9
-werkzeug==1.0.1
+tzlocal==2.1
+werkzeug==1.0.1; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
 wsproto==0.15.0
