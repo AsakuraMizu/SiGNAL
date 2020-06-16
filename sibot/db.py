@@ -10,4 +10,4 @@ def get_coll(name):
     db = conf.pop('db')
     if not conf:
         raise ValueError('No db configured. Aborting.')
-    return AsyncIOMotorClient(**conf)[db][name]
+    return AsyncIOMotorClient(**conf, connectTimeoutMS=5000)[db][name]
