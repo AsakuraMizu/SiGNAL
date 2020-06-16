@@ -6,7 +6,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from quart import Quart
 
 from .log import logger
-from .plugin import load_plugin, load_plugins
+from .plugin import load_plugin, load_plugins, load_from_config
 from .validate import config_schema
 
 scheduler = AsyncIOScheduler()
@@ -74,8 +74,7 @@ def init(config: Optional[dict] = None) -> None:
         logger.setLevel(logging.INFO)
     global _bot
     _bot = SiBot(config)
-    for plug in config.get('plugins', []):
-        load_plugin(plug)
+    load_from_config(config.get('plugins', []))
 
 
 def get_bot() -> SiBot:

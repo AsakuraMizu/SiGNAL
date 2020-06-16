@@ -1,24 +1,39 @@
 import importlib
 import pathlib
 import re
+from inspect import signature
+from typing import Any, Dict, List, Optional, Union
 
 from .log import logger
 
 
-def load_plugin(name: str) -> bool:
-    name = re.sub(r'^@', 'sibot.plugins.', name)
-    try:
-        module = importlib.import_module(name)
-        logger.info('Succeed to import "%s"', name)
-        return True
-    except:
-        logger.exception('Failed to import "%s"', name)
+def load_plugin(name: str, config: Optional[Dict[str, Any]] = None) -> bool:
+    module = None
+    for import_name in [name, f'sibot.plugins.{name}', f'plugins.{name}']:
+        try:
+            module = importlib.import_module(import_name)
+            logger.info('Succeed to import "%s"', import_name)
+        except ImportError:
+            continue
+        else:
+            break
+    else:
+        logger.error('Failed to import "%s"', name)
         return False
+    if config and hasattr(module, 'init') and callable(module.init):
+        try:
+            if len(signature(module.init).parameters) == 0:
+                module.init()
+            else:
+                module.init(config)
+        except:
+            logger.warning('Failed to initialize "%s"', name)
+    return True
 
 
-def load_plugins(dir: str, prefix: str) -> int:
-    count = 0
-    for sub in pathlib.Path(dir).iterdir():
+def load_plugins(path: str, prefix: str) -> int:
+    res = 0
+    for sub in pathlib.Path(path).iterdir():
         name = sub.name
         if sub.is_file() and (name.startswith('_') or not name.endswith('.py')):
             continue
@@ -27,7 +42,23 @@ def load_plugins(dir: str, prefix: str) -> int:
         m = re.match(r'([_A-Z0-9a-z]+)(.py)?', name)
         if not m:
             continue
-        res = load_plugin(f'{prefix}.{m.group(1)}')
-        if res:
-            count += 1
-    return count
+        res += load_plugin(f'{prefix}.{m.group(1)}')
+    return res
+
+
+def load_from_config(config: List[Union[str, List[Union[str, Dict[str, Any]]], Dict[str, Dict[str, Any]]]]) -> int:
+    res = 0
+    for plug in config:
+        if isinstance(plug, str):
+            res += load_plugin(plug)
+        elif isinstance(plug, list):
+            if len(plug) == 0:
+                continue
+            elif len(plug) == 1:
+                res += load_plugin(plug[0])
+            else:
+                name, conf, *_ = plug
+                res += load_plugin(name, conf)
+        elif isinstance(plug, dict):
+            res += load_from_config([[k, v] for k, v in plug.items()])
+    return res

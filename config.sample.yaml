@@ -27,4 +27,4 @@ mongo:
 
 # plugins
 plugins:
-  - '@common'
+  - common

@@ -51,6 +51,10 @@ config_schema = Schema({
     }),
 
     # plugins
-    Optional('plugins'): Container(str)
+    Optional('plugins'): Container(Or(
+        str,
+        Container(Or(str, dict)),
+        {str: dict}
+    ))
 
 }, ignore_extra_keys=True)
