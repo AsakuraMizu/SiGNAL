@@ -8,9 +8,8 @@ auth_key: REPLACE_IT
 qq: 123456
 
 # receiver
-host: 0.0.0.0
-port: 5000
-endpoint: /mirai
+ping_timeout: 5
+sleep_time: 3
 
 # command
 prefix:

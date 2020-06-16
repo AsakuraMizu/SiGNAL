@@ -3,7 +3,6 @@ from typing import Any, Dict, Optional
 
 from aiomirai import *
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from quart import Quart
 
 from .log import logger
 from .plugin import load_plugin, load_plugins, load_from_config
@@ -17,51 +16,20 @@ class SiBot(SessionApi):
         config = config_schema.validate(config)
         logger.debug('Loaded configurations: %s', config)
         super().__init__(config['api_root'], config['auth_key'], config['qq'])
-        self.config = config
-        self.app = Quart(__name__)
-        self.app.debug = config['debug']
-
-        @self.app.before_serving
-        async def _():
-            await self.auth()
-            await self.verify()
-            scheduler.configure()
-            scheduler.start()
-            logger.info('Scheduler started')
-            logger.debug('Timezone: %s', str(scheduler.timezone))
-
-        @self.app.after_serving
-        async def _():
-            await self.release()
-
-        self.recv = ReportReceiver(self.app, config['endpoint'])
+        self.config_dict = config
+        self.recv = WsReceiver(self, config['ping_timeout'], config['sleep_time'])
         self.cmd = CommandManager(self, config['prefix'])
         self.recv.on('FriendMessage')(self.cmd.handle_command)
         self.recv.on('GroupMessage')(self.cmd.handle_command)
 
-    def run(self,
-            host: Optional[str] = None,
-            port: Optional[int] = None,
-            *args,
-            **kwargs) -> None:
-        host = host or self.config['host']
-        port = port or self.config['port']
-        if 'debug' not in kwargs:
-            kwargs['debug'] = True
-
-        logger.info('Running on %s:%d', host, port)
-        self.app.run(host, port, *args, **kwargs)
-
-    async def call_action(self, action: str, *args, **kwargs) -> Any:
-        if not self.session_key:
-            await self.auth()
-            await self.verify()
-        try:
-            return await super().call_action(action, *args, **kwargs)
-        except (Unauthenticated, InvalidSession, Unverified):
-            await self.auth()
-            await self.verify()
-            return await self.call_action(action, *args, **kwargs)
+    async def run(self):
+        async with self:
+            await self.config(enable_websocket=True)
+            scheduler.configure()
+            scheduler.start()
+            logger.info('Scheduler started')
+            logger.debug('Timezone: %s', str(scheduler.timezone))
+            await self.recv.run()
 
 
 _bot: Optional[SiBot] = None
@@ -69,7 +37,10 @@ _bot: Optional[SiBot] = None
 
 def init(config: Optional[dict] = None) -> None:
     if config['debug']:
+        from aiomirai.logger import Api, Receiver
         logger.setLevel(logging.DEBUG)
+        Api.setLevel(logging.DEBUG)
+        Receiver.setLevel(logging.DEBUG)
     else:
         logger.setLevel(logging.INFO)
     global _bot
@@ -84,14 +55,15 @@ def get_bot() -> SiBot:
 
 
 def get_conf() -> Dict[str, Any]:
-    return get_bot().config
+    return get_bot().config_dict
 
 
-def run(host: Optional[str] = None,
-        port: Optional[int] = None,
-        *args,
-        **kwargs):
-    get_bot().run(host, port, *args, **kwargs)
+def run():
+    import asyncio
+    try:
+        asyncio.run(get_bot().run())
+    except KeyboardInterrupt:
+        logger.info('Exiting...')
 
 
 def on_command(name: str):

@@ -34,9 +34,8 @@ config_schema = Schema({
     'qq': int,
 
     # receiver
-    Optional('host', default='0.0.0.0'): str,
-    Optional('port', default=5000): int,
-    Optional('endpoint', default='/mirai'): str,
+    Optional('ping_timeout', default=5): int,
+    Optional('sleep_time', default=3): int,
 
     # command
     Optional('prefix', default='/'): Or(Container(str), str),

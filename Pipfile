@@ -8,8 +8,7 @@ pylint = "*"
 yapf = "*"
 
 [packages]
-aiomirai = "*"
-quart = "*"
+aiomirai = {extras = ["ws"], version = "*"}
 schema = "*"
 motor = "*"
 pyyaml = "*"
