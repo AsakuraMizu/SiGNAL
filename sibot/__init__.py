@@ -1,13 +1,15 @@
-import asyncio
 import logging
 from typing import Any, Dict, Optional
 
 from aiomirai import *
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from quart import Quart
 
 from .log import logger
 from .plugin import load_plugin, load_plugins
 from .validate import config_schema
+
+scheduler = AsyncIOScheduler()
 
 
 class SiBot(SessionApi):
@@ -23,6 +25,10 @@ class SiBot(SessionApi):
         async def _():
             await self.auth()
             await self.verify()
+            scheduler.configure()
+            scheduler.start()
+            logger.info('Scheduler started')
+            logger.debug('Timezone: %s', str(scheduler.timezone))
 
         @self.app.after_serving
         async def _():
