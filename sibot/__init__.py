@@ -36,13 +36,11 @@ _bot: Optional[SiBot] = None
 
 
 def init(config: Optional[dict] = None) -> None:
+    from .log import DEBUG_LOGGERS
+    logging.basicConfig(level=logging.WARNING, format='[%(asctime)s %(name)s] %(levelname)s: %(message)s')
     if config['debug']:
-        from aiomirai.logger import Api, Receiver
-        logger.setLevel(logging.DEBUG)
-        Api.setLevel(logging.DEBUG)
-        Receiver.setLevel(logging.DEBUG)
-    else:
-        logger.setLevel(logging.INFO)
+        for lg in DEBUG_LOGGERS:
+            logging.getLogger(lg).setLevel(logging.DEBUG)
     global _bot
     _bot = SiBot(config)
     load_from_config(config.get('plugins', []))
