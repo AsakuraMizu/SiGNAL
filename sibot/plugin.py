@@ -18,7 +18,7 @@ def load_plugin(name: str, config: Optional[Dict[str, Any]] = None) -> bool:
         else:
             break
     else:
-        logger.error('Failed to import "%s"', name)
+        logger.error('Failed to load plugin "%s"', name)
         return False
     if config and hasattr(module, 'init') and callable(module.init):
         try:
@@ -52,7 +52,7 @@ def load_from_config(config: List[Union[str, Tuple[str, Dict[str, Any]], Dict[st
         if isinstance(plug, str):
             res += load_plugin(plug)
         elif isinstance(plug, tuple):
-            name, conf, *_ = plug
+            name, conf = plug
             res += load_plugin(name, conf)
         elif isinstance(plug, dict):
             res += load_from_config([(k, v) for k, v in plug.items()])
