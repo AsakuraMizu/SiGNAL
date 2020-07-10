@@ -7,7 +7,7 @@ class Mongo(BaseModel):
     host: Optional[str] = 'db'
     port: Optional[int] = 27017
     username: Optional[str] = ''
-    password: Optional[SecretStr] = ''
+    password: Optional[SecretStr] = SecretStr('')
     db: Optional[str] = 'bot'
 
 
