@@ -51,14 +51,9 @@ def load_from_config(config: List[Union[str, Tuple[str, Dict[str, Any]], Dict[st
     for plug in config:
         if isinstance(plug, str):
             res += load_plugin(plug)
-        elif isinstance(plug, list):
-            if len(plug) == 0:
-                continue
-            elif len(plug) == 1:
-                res += load_plugin(plug[0])
-            else:
-                name, conf, *_ = plug
-                res += load_plugin(name, conf)
+        elif isinstance(plug, tuple):
+            name, conf, *_ = plug
+            res += load_plugin(name, conf)
         elif isinstance(plug, dict):
             res += load_from_config([(k, v) for k, v in plug.items()])
     return res
