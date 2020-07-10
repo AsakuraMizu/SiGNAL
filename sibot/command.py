@@ -115,7 +115,11 @@ class CommandManager:
             return False
 
     async def handle_command(self, event: Event) -> bool:
-        res = self.parse_command(event['message_chain'])
+        try:
+            res = self.parse_command(event['message_chain'])
+        except:
+            logger.exception('Failed to parse command. Ignore.')
+            res = None
         if not res:
             return False
         prefix, name, argv = res
