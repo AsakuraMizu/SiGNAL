@@ -49,7 +49,7 @@ async def _get_perm(event: Event) -> Set[Perm]:
     except:
         logger.exception('Unable to get permission info from database')
         res = set()
-    if sender['id'] in get_conf()['admin']:
+    if sender['id'] in get_conf().admin:
         res.add(Perm.bot_admin)
         res.add(Perm.bot_helper)
         res.add(Perm.bot_sponsor)

@@ -6,19 +6,18 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from .log import logger
 from .plugin import load_plugin, load_plugins, load_from_config
-from .validate import config_schema
+from .schema import Config
 
 scheduler = AsyncIOScheduler()
 
 
 class SiBot(SessionApi):
-    def __init__(self, config):
-        config = config_schema.validate(config)
+    def __init__(self, config: Config):
         logger.debug('Loaded configurations: %s', config)
-        super().__init__(config['api_root'], config['auth_key'], config['qq'])
-        self.config_dict = config
-        self.recv = WsReceiver(self, config['ping_timeout'], config['sleep_time'])
-        self.cmd = CommandManager(self, config['prefix'])
+        super().__init__(config.api_root, config.auth_key.get_secret_value(), config.qq)
+        self.config_obj = config
+        self.recv = WsReceiver(self, config.ping_timeout, config.sleep_time)
+        self.cmd = CommandManager(self, config.prefix)
         self.recv.on('FriendMessage')(self.cmd.handle_command)
         self.recv.on('GroupMessage')(self.cmd.handle_command)
 
@@ -36,14 +35,15 @@ _bot: Optional[SiBot] = None
 
 
 def init(config: Optional[dict] = None) -> None:
+    config = Config(**config)
     from .log import DEBUG_LOGGERS
     logging.basicConfig(level=logging.WARNING, format='[%(asctime)s %(name)s] %(levelname)s: %(message)s')
-    if config['debug']:
+    if config.debug:
         for lg in DEBUG_LOGGERS:
             logging.getLogger(lg).setLevel(logging.DEBUG)
     global _bot
     _bot = SiBot(config)
-    load_from_config(config.get('plugins', []))
+    load_from_config(config.plugins)
 
 
 def get_bot() -> SiBot:
@@ -52,8 +52,8 @@ def get_bot() -> SiBot:
     return _bot
 
 
-def get_conf() -> Dict[str, Any]:
-    return get_bot().config_dict
+def get_conf() -> Config:
+    return get_bot().config_obj
 
 
 def run():

@@ -2,7 +2,7 @@ import importlib
 import pathlib
 import re
 from inspect import signature
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 from .log import logger
 
@@ -46,7 +46,7 @@ def load_plugins(path: str, prefix: str) -> int:
     return res
 
 
-def load_from_config(config: List[Union[str, List[Union[str, Dict[str, Any]]], Dict[str, Dict[str, Any]]]]) -> int:
+def load_from_config(config: List[Union[str, Tuple[str, Dict[str, Any]], Dict[str, Dict[str, Any]]]]) -> int:
     res = 0
     for plug in config:
         if isinstance(plug, str):
@@ -60,5 +60,5 @@ def load_from_config(config: List[Union[str, List[Union[str, Dict[str, Any]]], D
                 name, conf, *_ = plug
                 res += load_plugin(name, conf)
         elif isinstance(plug, dict):
-            res += load_from_config([[k, v] for k, v in plug.items()])
+            res += load_from_config([(k, v) for k, v in plug.items()])
     return res

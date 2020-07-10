@@ -9,13 +9,13 @@ yapf = "*"
 
 [packages]
 aiomirai = {extras = ["ws"], version = "*"}
-schema = "*"
 motor = "*"
 pyyaml = "*"
 psutil = "*"
 matplotlib = "*"
 httpx = "*"
 apscheduler = "*"
+pydantic = "*"
 
 [scripts]
 start = "python bot.py"
