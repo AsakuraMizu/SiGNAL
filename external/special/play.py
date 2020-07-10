@@ -4,9 +4,7 @@ from typing import Awaitable, Any, Callable
 from sibot import on_command, CommandSession, Perm, check_perm
 
 
-def only(
-        func: Callable[[CommandSession], Awaitable[Any]]
-) -> Callable[[CommandSession], Awaitable[Any]]:
+def only(func: Callable[[CommandSession], Awaitable[Any]]) -> Callable[[CommandSession], Awaitable[Any]]:
     @wraps(func)
     async def wrapper(session: CommandSession):
         if not await check_perm(session.event, {Perm.bot_sponsor}) and \
@@ -14,6 +12,7 @@ def only(
             await session.reply('Permission Denied：您不是 Bot 赞助者或协助者')
         else:
             return await func(session)
+
     return wrapper
 
 

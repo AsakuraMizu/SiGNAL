@@ -39,11 +39,7 @@ async def _query_perm(qq: int) -> Set[Perm]:
 
 async def update_perm(qq: int, name: str, val: bool):
     db = get_coll('user')
-    return await db.find_one_and_update(
-        {'qq': qq},
-        {'$set': {name: val}},
-        upsert=True
-    )
+    return await db.find_one_and_update({'qq': qq}, {'$set': {name: val}}, upsert=True)
 
 
 async def _get_perm(event: Event) -> Set[Perm]:

@@ -6,8 +6,7 @@ from .log import logger
 
 
 class CommandSession:
-    def __init__(self, bot: SessionApi, event: Event, prefix: str,
-                 name: str, argv: MessageChain):
+    def __init__(self, bot: SessionApi, event: Event, prefix: str, name: str, argv: MessageChain):
         self.bot = bot
         self.event = event
         self.prefix = prefix
@@ -20,45 +19,30 @@ class CommandSession:
         qq = self.event['sender']['id']
         if self.event['type'] == 'TempMessage':
             group = self.event['sender']['group']['id']
-            return self.bot.send_temp_message(qq=qq,
-                                              group=group,
-                                              message_chain=msg)
+            return self.bot.send_temp_message(qq=qq, group=group, message_chain=msg)
         if self.event['type'] == 'FriendMessage':
-            return self.bot.send_friend_message(target=qq,
-                                                message_chain=msg)
+            return self.bot.send_friend_message(target=qq, message_chain=msg)
         if self.event['type'] == 'GroupMessage':
             group = self.event['sender']['group']['id']
-            return self.bot.send_group_message(target=group,
-                                               message_chain=msg)
+            return self.bot.send_group_message(target=group, message_chain=msg)
         raise ValueError('Unrecognized Message Type')
 
-    def reply(self,
-              msg: Union[MessageChain, MessageSegment, str],
-              ensure_private: bool = False,
-              quote: bool = True):
+    def reply(self, msg: Union[MessageChain, MessageSegment, str], ensure_private: bool = False, quote: bool = True):
         if isinstance(msg, (MessageSegment, str)):
             msg = MessageChain(msg)
         qq = self.event['sender']['id']
         msg_id = self.event['message_chain'][0]['id']
         if self.event['type'] == 'FriendMessage':
-            return self.bot.send_friend_message(target=qq,
-                                                quote=msg_id if quote else None,
-                                                message_chain=msg)
+            return self.bot.send_friend_message(target=qq, quote=msg_id if quote else None, message_chain=msg)
         if self.event['type'] == 'TempMessage' or ensure_private:
             group = self.event['sender']['group']['id']
-            return self.bot.send_temp_message(qq=qq,
-                                              group=group,
-                                              quote=msg_id if quote else None,
-                                              message_chain=msg)
+            return self.bot.send_temp_message(qq=qq, group=group, quote=msg_id if quote else None, message_chain=msg)
         if self.event['type'] == 'GroupMessage':
             group = self.event['sender']['group']['id']
             if quote:
-                return self.bot.send_group_message(target=group,
-                                                   quote=msg_id,
-                                                   message_chain=msg)
+                return self.bot.send_group_message(target=group, quote=msg_id, message_chain=msg)
             else:
-                return self.bot.send_group_message(target=group,
-                                                   message_chain=At(qq) + msg)
+                return self.bot.send_group_message(target=group, message_chain=At(qq) + msg)
         raise ValueError('Unrecognized Message Type')
 
     async def upload_image(self, img: IO, name: Optional[str]):
@@ -83,12 +67,10 @@ class CommandManager:
     def __init__(self, bot: SessionApi, prefix: Union[str, Iterable[str]]):
         self.bot = bot
         if isinstance(prefix, str):
-            prefix = (prefix,)
+            prefix = (prefix, )
         self._prefix = prefix
 
-    def parse_command(
-            self,
-            message: MessageChain) -> Optional[Tuple[str, str, MessageChain]]:
+    def parse_command(self, message: MessageChain) -> Optional[Tuple[str, str, MessageChain]]:
         logger.debug('Parsing command: %s', message)
         msg = MessageChain(message)
         msg.pop(0)
@@ -129,8 +111,7 @@ class CommandManager:
             await cmd(session)
             return True
         except:
-            logger.exception('An exception occurred while '
-                             'running command %s:', name)
+            logger.exception('An exception occurred while ' 'running command %s:', name)
             return False
 
     async def handle_command(self, event: Event) -> bool:
@@ -146,9 +127,7 @@ class CommandManager:
         return False
 
     def on_command(self, name: str):
-        def deco(
-                func: Callable[[CommandSession], Awaitable]
-        ) -> Callable[[CommandSession], Awaitable]:
+        def deco(func: Callable[[CommandSession], Awaitable]) -> Callable[[CommandSession], Awaitable]:
             self._commands[name] = func
             return func
 

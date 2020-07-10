@@ -4,10 +4,8 @@ from sibot import on_event, get_bot
 
 @on_command('help')
 async def _(session: CommandSession):
-    await session.reply(
-        'SiGNAL酱是一个免费、开源的QQ机器人，主要服务于开发人员，能够提供许多专业需求。'
-        '当然SiGNAL酱也提供了一些其他的功能，详见 https://signal.solariar.tech/'
-    )
+    await session.reply('SiGNAL酱是一个免费、开源的QQ机器人，主要服务于开发人员，能够提供许多专业需求。'
+                        '当然SiGNAL酱也提供了一些其他的功能，详见 https://signal.solariar.tech/')
 
 
 @on_command('about')
@@ -24,18 +22,12 @@ async def _(session: CommandSession):
     }
     await session.reply('\n'.join([
         'SiGNAL酱的运行离不开以下项目，去他们的项目页看看，'
-        '点个 Star 以鼓励他们的开发工作，毕竟没有他们也没有 SiGNAL Bot.',
-        *[f'{k}: {v}' for k, v in repos.items()],
-        '===SiGNAL Bot的源代码仓库===',
+        '点个 Star 以鼓励他们的开发工作，毕竟没有他们也没有 SiGNAL Bot.', *[f'{k}: {v}' for k, v in repos.items()], '===SiGNAL Bot的源代码仓库===',
         'https://github.com/AsakuraMizu/SiGNAL/'
     ]))
 
 
 @on_event('BotJoinGroupEvent')
 async def _(event):
-    await get_bot().send_group_message(
-        target=event['group']['id'],
-        message_chain=MessageChain(
-            '大家好，我是SiGNAL酱，有关我的详细信息可输入 ?help 查看哦~'
-        )
-    )
+    await get_bot().send_group_message(target=event['group']['id'],
+                                       message_chain=MessageChain('大家好，我是SiGNAL酱，有关我的详细信息可输入 ?help 查看哦~'))

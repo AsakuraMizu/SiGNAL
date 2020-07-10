@@ -8,5 +8,7 @@ async def _(ev: Event):
 
 @on_event('BotInvitedJoinGroupRequestEvent')
 async def _(ev: Event):
-    await get_bot().resp_bot_invited_join_group(event_id=ev['event_id'], from_id=ev['from_id'], group_id=ev['group_id'],
+    await get_bot().resp_bot_invited_join_group(event_id=ev['event_id'],
+                                                from_id=ev['from_id'],
+                                                group_id=ev['group_id'],
                                                 operate=0)

@@ -14,10 +14,7 @@ async def _(session: CommandSession):
         await session.reply(f'[oeis] 用法：{session.prefix}{session.name} <query>')
         return
     async with AsyncClient() as client:
-        resp = await client.get('https://oeis.org/search', params={
-            'q': q,
-            'fmt': 'text'
-        })
+        resp = await client.get('https://oeis.org/search', params={'q': q, 'fmt': 'text'})
     if not 200 <= resp.status_code < 300:
         await session.reply(f'[oeis] 错误：{resp.status_code}')
         return
@@ -36,11 +33,4 @@ async def _(session: CommandSession):
     pyplot.close()
     buf.seek(0)
     img_id = (await session.upload_image(buf, f'oeis-{id}.png'))['image_id']
-    await session.reply(MessageChain([
-        '\n'.join([
-            f'[oeis] 共找到 {cnt} 条结果。',
-            f'{id}：{name}',
-            f'{arr}'
-        ]),
-        Image(img_id)
-    ]))
+    await session.reply(MessageChain(['\n'.join([f'[oeis] 共找到 {cnt} 条结果。', f'{id}：{name}', f'{arr}']), Image(img_id)]))

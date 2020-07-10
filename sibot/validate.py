@@ -22,38 +22,46 @@ class Container:
         return type(data)(o.validate(d) for d in data)
 
 
-config_schema = Schema({
+config_schema = Schema(
+    {
 
-    # general
-    Optional('debug', default=False): bool,
-    Optional('admin', default=[]): Container(int),
+        # general
+        Optional('debug', default=False):
+        bool,
+        Optional('admin', default=[]):
+        Container(int),
 
-    # api
-    'api_root': str,
-    'auth_key': object,
-    'qq': int,
-
-    # receiver
-    Optional('ping_timeout', default=5): int,
-    Optional('sleep_time', default=3): int,
-
-    # command
-    Optional('prefix', default='/'): Or(Container(str), str),
-
-    # db
-    Optional('mongo', default=False): Or(False, {
-        Optional('host', default='db'): str,
-        Optional('port', default=27017): int,
-        Optional('username', default=''): str,
-        Optional('password', default=''): str,
-        Optional('db', default='bot'): str
-    }),
-
-    # plugins
-    Optional('plugins'): Container(Or(
+        # api
+        'api_root':
         str,
-        Container(Or(str, dict)),
-        {str: dict}
-    ))
+        'auth_key':
+        object,
+        'qq':
+        int,
 
-}, ignore_extra_keys=True)
+        # receiver
+        Optional('ping_timeout', default=5):
+        int,
+        Optional('sleep_time', default=3):
+        int,
+
+        # command
+        Optional('prefix', default='/'):
+        Or(Container(str), str),
+
+        # db
+        Optional('mongo', default=False):
+        Or(
+            False, {
+                Optional('host', default='db'): str,
+                Optional('port', default=27017): int,
+                Optional('username', default=''): str,
+                Optional('password', default=''): str,
+                Optional('db', default='bot'): str
+            }),
+
+        # plugins
+        Optional('plugins'):
+        Container(Or(str, Container(Or(str, dict)), {str: dict}))
+    },
+    ignore_extra_keys=True)

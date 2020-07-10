@@ -20,11 +20,8 @@ def get_size(bytes, suffix="B"):
 @on_command('status')
 async def _(session: CommandSession):
     info = await session.bot.get_about()
-    await session.reply('\n'.join([
-        '[SiGNAL] 运行状态',
-        '登录账号：{}'.format(session.bot.qq),
-        'Mirai API HTTP 插件版本: {}'.format(info['data']['version'])
-    ]))
+    await session.reply('\n'.join(
+        ['[SiGNAL] 运行状态', '登录账号：{}'.format(session.bot.qq), 'Mirai API HTTP 插件版本: {}'.format(info['data']['version'])]))
 
 
 @on_command('sysinfo')
@@ -39,16 +36,11 @@ async def _(session: CommandSession):
         return res
 
     await session.reply('\n'.join([
-        '[SiGNAL] 系统状态',
-        f'操作系统: {platform.platform()}',
-        f'计算机名: {platform.node()}',
-        '=====',
+        '[SiGNAL] 系统状态', f'操作系统: {platform.platform()}', f'计算机名: {platform.node()}', '=====',
         f'CPU使用率: {psutil.cpu_percent()}%',
         (lambda vmem: f'内存使用率: {get_size(vmem.used)} / {get_size(vmem.total)}'
-                      f'({vmem.percent}%)')(psutil.virtual_memory()),
+         f'({vmem.percent}%)')(psutil.virtual_memory()),
         (lambda swap: f'交换空间使用率: {get_size(swap.used)} / {get_size(swap.total)}'
-                      f'({swap.percent}%)')(psutil.swap_memory()),
-        '=====',
-        '硬盘使用情况：',
+         f'({swap.percent}%)')(psutil.swap_memory()), '=====', '硬盘使用情况：',
         *[gen_part(part) for part in psutil.disk_partitions()]
     ]))
