@@ -1,6 +1,6 @@
 import asyncio
 
-from sibot import on_event, Event, scheduler, get_bot, MessageChain, At
+from sibot import on_event, Event, scheduler, get_bot, MessageChain, At, BotMuted
 
 TEST_GROUP = 0
 REPORT_GROUP = 0
@@ -21,15 +21,19 @@ async def _(ev: Event):
 async def _():
     global flag
     if flag:
-        if flag == 1:
-            await get_bot().send_group_message(target=REPORT_GROUP,
-                                               message_chain=MessageChain([At(AT_QQ), ' lxlx，软糖酱又不理我了']))
-            await get_bot().send_group_message(target=REPORT_GROUP, message_chain=MessageChain('/x stat'))
-            await asyncio.sleep(2)
-            await get_bot().send_group_message(target=REPORT_GROUP, message_chain=MessageChain('软——糖——酱——'))
-        else:
-            await get_bot().send_group_message(target=REPORT_GROUP,
-                                               message_chain=MessageChain(f'呜呜呜软糖酱已经{flag}分钟没理我了......'))
+        try:
+            if flag == 1:
+                await get_bot().send_group_message(target=REPORT_GROUP,
+                                                   message_chain=MessageChain([At(AT_QQ), ' lxlx，软糖酱又不理我了']))
+                await get_bot().send_group_message(target=REPORT_GROUP, message_chain=MessageChain('/x stat'))
+                await asyncio.sleep(2)
+                await get_bot().send_group_message(target=REPORT_GROUP, message_chain=MessageChain('软——糖——酱——'))
+            else:
+                if flag % 5 == 1:
+                    await get_bot().send_group_message(target=REPORT_GROUP,
+                                                       message_chain=MessageChain(f'呜呜呜软糖酱已经{flag}分钟没理我了......'))
+        except BotMuted:
+            pass
     await get_bot().send_group_message(target=TEST_GROUP, message_chain=MessageChain('/x stat'))
     flag += 1
 
