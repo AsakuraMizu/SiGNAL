@@ -59,11 +59,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/bluebird@^3.5.32":
-  version "3.5.32"
-  resolved "https://registry.npm.taobao.org/@types/bluebird/download/@types/bluebird-3.5.32.tgz#381e7b59e39f010d20bbf7e044e48f5caf1ab620"
-  integrity sha1-OB57WeOfAQ0gu/fgROSPXK8atiA=
-
 "@types/body-parser@*":
   version "1.19.0"
   resolved "https://registry.npm.taobao.org/@types/body-parser/download/@types/body-parser-1.19.0.tgz#0685b3c47eb3006ffed117cdd55164b61f80538f"
@@ -1268,6 +1263,17 @@ eslint-import-resolver-node@^0.3.1, eslint-import-resolver-node@^0.3.2, eslint-i
   dependencies:
     debug "^2.6.9"
     resolve "^1.13.1"
+
+eslint-import-resolver-typescript@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/eslint-import-resolver-typescript/-/eslint-import-resolver-typescript-2.2.1.tgz#4b9bdfb51af7e14947ebc40ffdd6c32d5924b905"
+  integrity sha512-wxlVdwuWY6R5+CoesIy6n8EZX4k9lEeZGWTVBoX9g//8Xma8JMtL/p3AGnG43rRyXmIrX+/0IN8lpOPzrw1fSw==
+  dependencies:
+    debug "^4.1.1"
+    glob "^7.1.6"
+    is-glob "^4.0.1"
+    resolve "^1.17.0"
+    tsconfig-paths "^3.9.0"
 
 eslint-module-utils@^2.1.1, eslint-module-utils@^2.4.0, eslint-module-utils@^2.6.0:
   version "2.6.0"
@@ -2660,6 +2666,13 @@ koishi-utils@^3.1.0:
   dependencies:
     supports-color "^7.1.0"
 
+koishi-utils@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/koishi-utils/-/koishi-utils-3.1.1.tgz#3d99a5eda543955f30a05df1e666f98c39dabed3"
+  integrity sha512-qKrgi0Femzgv4ooTwzVSAsYPqUe5FNyyKUx/TNNF/i3n3pZ5dLuwujICsMowbsK/3XhlhtmESh8bn+sMNxAjPw==
+  dependencies:
+    supports-color "^7.1.0"
+
 leven@^3.1.0:
   version "3.1.0"
   resolved "https://registry.npm.taobao.org/leven/download/leven-3.1.0.tgz#77891de834064cccba82ae7842bb6b14a13ed7f2"
@@ -2846,11 +2859,6 @@ lodash.reduce@^4.6.0:
   version "4.6.0"
   resolved "https://registry.npm.taobao.org/lodash.reduce/download/lodash.reduce-4.6.0.tgz#f1ab6b839299ad48f784abbf476596f03b914d3b"
   integrity sha1-8atrg5KZrUj3hKu/R2WW8DuRTTs=
-
-lodash.toarray@^4.4.0:
-  version "4.4.0"
-  resolved "https://registry.npm.taobao.org/lodash.toarray/download/lodash.toarray-4.4.0.tgz#24c4bfcd6b2fba38bfd0594db1179d8e9b656561"
-  integrity sha1-JMS/zWsvuji/0FlNsRedjptlZWE=
 
 lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.4, lodash@^4.3.0:
   version "4.17.20"
@@ -3180,13 +3188,6 @@ nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.npm.taobao.org/nice-try/download/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha1-ozeKdpbOfSI+iPybdkvX7xCJ42Y=
-
-node-emoji@^1.10.0:
-  version "1.10.0"
-  resolved "https://registry.npm.taobao.org/node-emoji/download/node-emoji-1.10.0.tgz#8886abd25d9c7bb61802a658523d1f8d2a89b2da"
-  integrity sha1-iIar0l2ce7YYAqZYUj0fjSqJsto=
-  dependencies:
-    lodash.toarray "^4.4.0"
 
 node-rsa@^0.4.2:
   version "0.4.2"
@@ -4017,11 +4018,6 @@ safe-buffer@^5.1.1, safe-buffer@^5.1.2, safe-buffer@~5.2.0:
   resolved "https://registry.npm.taobao.org/safe-buffer/download/safe-buffer-5.2.1.tgz#1eaf9fa9bdb1fdd4ec75f58f9cdb4e6b7827eec6"
   integrity sha1-Hq+fqb2x/dTsdfWPnNtOa3gn7sY=
 
-safe-json-stringify@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.npm.taobao.org/safe-json-stringify/download/safe-json-stringify-1.2.0.tgz#356e44bc98f1f93ce45df14bcd7c01cda86e0afd"
-  integrity sha1-NW5EvJjx+TzkXfFLzXwBzahuCv0=
-
 safe-regex@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npm.taobao.org/safe-regex/download/safe-regex-1.1.0.tgz#40a3669f3b077d1e943d44629e157dd48023bf2e"
@@ -4393,11 +4389,6 @@ strip-bom@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npm.taobao.org/strip-bom/download/strip-bom-3.0.0.tgz?cache=0&sync_timestamp=1597635878444&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fstrip-bom%2Fdownload%2Fstrip-bom-3.0.0.tgz#2334c18e9c759f7bdd56fdef7e9ae3d588e68ed3"
   integrity sha1-IzTBjpx1n3vdVv3vfprj1YjmjtM=
-
-strip-color@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.npm.taobao.org/strip-color/download/strip-color-0.1.0.tgz#106f65d3d3e6a2d9401cac0eb0ce8b8a702b4f7b"
-  integrity sha1-EG9l09PmotlAHKwOsM6LinArT3s=
 
 strip-json-comments@^3.0.1, strip-json-comments@^3.1.0:
   version "3.1.1"
@@ -4881,13 +4872,3 @@ ylru@^1.2.0:
   version "1.2.1"
   resolved "https://registry.npm.taobao.org/ylru/download/ylru-1.2.1.tgz#f576b63341547989c1de7ba288760923b27fe84f"
   integrity sha1-9Xa2M0FUeYnB3nuiiHYJI7J/6E8=
-
-zoya@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.npm.taobao.org/zoya/download/zoya-1.0.2.tgz#0b0dc6575945b1f477ba4fcf77f298adb3e63b9a"
-  integrity sha1-Cw3GV1lFsfR3uk/Pd/KYrbPmO5o=
-  dependencies:
-    chalk "^4.1.0"
-    node-emoji "^1.10.0"
-    safe-json-stringify "^1.2.0"
-    strip-color "^0.1.0"

@@ -9,8 +9,9 @@ export = class {
 
   apply = (app: SiGNAL) => {
     app.koishi.on('message', (session) => {
-      if (session.messageType === 'group' && session.groupId === this.group)
+      if (session.messageType === 'group' && session.groupId === this.group) {
         app.mineflayer.chat(`[QQ] ${session.sender.nickname}: ${session.message}`);
+      }
     });
     app.mineflayer.on('chat', (username, message) => {
       if (username !== app.mineflayer.username) {

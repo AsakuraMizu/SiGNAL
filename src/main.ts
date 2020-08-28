@@ -1,28 +1,18 @@
-import bluebird from 'bluebird';
 import http from 'http';
 import Koa from 'koa';
 import KoaBodyParser from 'koa-bodyparser';
 import KoaRouter from 'koa-router';
-import { zoya } from 'zoya';
 import { MikroORM, MikroORMOptions } from 'mikro-orm';
 import { App as KoishiApp, AppOptions as KoishiOptions } from 'koishi-core';
+import { Logger } from 'koishi-utils';
 import { apply as KoishiPluginMongo, Config as MongoConfig } from 'koishi-plugin-mongo';
 import { createBot as createMineBot, Bot as MineBot, BotOptions as MineBotOptions } from 'mineflayer';
 import { forgeHandshake } from 'minecraft-protocol-forge';
 import 'koishi-adapter-cqhttp';
 
-bluebird.promisifyAll(http.Server.prototype);
-
-declare module 'http' {
-  interface Server {
-    listenAsync(port?: number): Promise<this>;
-    closeAsync(): Promise<this>;
-  }
-}
-
 interface Options {
   koishi: KoishiOptions,
-  mineflayer: {bot: MineBotOptions, mods: Array<String>},
+  mineflayer: { bot: MineBotOptions, mods: Array<String> },
   mongoKoishi: MongoConfig,
   mongoMikro: MikroORMOptions,
   plugins: Array<string | EnabledPlugin>,
@@ -44,7 +34,7 @@ class SiGNAL {
 
   orm: MikroORM;
 
-  logger = zoya();
+  logger = new Logger('main');
 
   server: http.Server;
 
@@ -56,7 +46,7 @@ class SiGNAL {
     this.options = options;
   }
 
-  start = async () => {
+  async start() {
     this.koishi = new KoishiApp(this.options.koishi);
     this.koishi.plugin(KoishiPluginMongo, this.options.mongoKoishi);
     this.koishi.on('connect', async () => {
@@ -92,7 +82,9 @@ class SiGNAL {
           const plug = new Plug();
           plug.apply(this);
         } else {
-          const Plug: new (options: NodeJS.Dict<any>) => { apply: (app: SiGNAL) => void } = require(plugin.name.replace(/^@sb\//, './plugins/'));
+          const Plug: new (options: NodeJS.Dict<any>) => {
+            apply: (app: SiGNAL) => void
+          } = require(plugin.name.replace(/^@sb\//, './plugins/'));
           const plug = new Plug(plugin.options);
           plug.apply(this);
         }
@@ -110,21 +102,26 @@ class SiGNAL {
       return null;
     });
     await this.koishi.getSelfIds();
-    await this.server.listenAsync(this.options.api_port).catch((err) => {
-      this.logger.error('Failed to start http server');
-      this.logger.error(err.stack);
-      return null;
+    await new Promise((resolve) => {
+      this.server.listen(this.options.api_port, () => {
+        resolve();
+      });
     });
-  };
+  }
 
-  exit = async () => {
+  async exit() {
     await this.orm.close();
     await this.koishi.stop();
-    await this.server.closeAsync();
+    await new Promise((resolve, reject) => {
+      this.server.close((err) => {
+        if (err) reject(err);
+        resolve();
+      });
+    });
     this.mineflayer.quit();
     this.mineflayer.end();
     process.exit(0);
-  };
+  }
 }
 
 export default SiGNAL;
