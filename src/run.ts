@@ -13,6 +13,6 @@ global.app = App;
 
 const r = repl.start('> ');
 r.context.App = App;
-r.on('exit', App.exit);
+r.on('exit', () => App.exit());
 
 App.start();

@@ -1,64 +1,35 @@
-import bluebird from 'bluebird';
-import http from 'http';
-import Koa from 'koa';
-import KoaBodyParser from 'koa-bodyparser';
-import KoaRouter from 'koa-router';
-import { zoya } from 'zoya';
-import { MikroORM, MikroORMOptions } from 'mikro-orm';
 import { App as KoishiApp, AppOptions as KoishiOptions } from 'koishi-core';
-import { apply as KoishiPluginMongo, Config as MongoConfig } from 'koishi-plugin-mongo';
+import { apply as KoishiPluginMongo, Config as DbConfig } from 'koishi-plugin-mongo';
+import { Logger } from 'koishi-utils';
 import { createBot as createMineBot, Bot as MineBot, BotOptions as MineBotOptions } from 'mineflayer';
 import { forgeHandshake } from 'minecraft-protocol-forge';
 import 'koishi-adapter-cqhttp';
 
-bluebird.promisifyAll(http.Server.prototype);
-
-declare module 'http' {
-  interface Server {
-    listenAsync(port?: number): Promise<this>;
-    closeAsync(): Promise<this>;
-  }
-}
-
 interface Options {
   koishi: KoishiOptions,
   mineflayer: {bot: MineBotOptions, mods: Array<String>},
-  mongoKoishi: MongoConfig,
-  mongoMikro: MikroORMOptions,
-  plugins: Array<string | EnabledPlugin>,
-  api_port: number,
+  db: DbConfig,
+  plugins: Record<string, NodeJS.Dict<any>>,
   admin: Array<number>
 }
 
-interface EnabledPlugin {
-  name: string,
-  options: NodeJS.Dict<any>
-}
-
-class SiGNAL {
+export default class SiGNAL {
   options: Options;
 
   koishi: KoishiApp;
 
   mineflayer: MineBot;
 
-  orm: MikroORM;
-
-  logger = zoya();
-
-  server: http.Server;
-
-  koa = new Koa();
-
-  router = new KoaRouter();
+  logger = new Logger('SiGNAL');
 
   constructor(options: Options) {
     this.options = options;
   }
 
-  start = async () => {
+  async start() {
+    // Initialize Koishi
     this.koishi = new KoishiApp(this.options.koishi);
-    this.koishi.plugin(KoishiPluginMongo, this.options.mongoKoishi);
+    this.koishi.plugin(KoishiPluginMongo, this.options.db);
     this.koishi.on('connect', async () => {
       this.options.admin.forEach((admin) => this.koishi.database.getUser(admin, 5));
     });
@@ -68,6 +39,8 @@ class SiGNAL {
       }
       return next();
     });
+
+    // Initialize Mineflayer
     this.mineflayer = createMineBot(this.options.mineflayer.bot);
     // eslint-disable-next-line no-underscore-dangle
     forgeHandshake(this.mineflayer._client, {
@@ -76,55 +49,31 @@ class SiGNAL {
         return { modid, version };
       }),
     });
-    this.mineflayer.on('login', () => this.mineflayer.chat('Hi, I\'m SiGNAL.'));
+    this.mineflayer.on('login', () => this.logger.info('connected to MC Server'));
     this.mineflayer.on('error', (err) => {
       this.logger.error(err);
     });
-    this.orm = await MikroORM.init(this.options.mongoMikro).catch((err) => {
-      this.logger.error('Failed to initialize MikroORM');
-      this.logger.error(err.stack);
-      return null;
-    });
-    this.options.plugins.forEach((plugin) => {
+
+    // Load Plugins
+    Object.entries(this.options.plugins).forEach(([name, options]) => {
       try {
-        if (typeof plugin === 'string') {
-          const Plug: new () => { apply: (app: SiGNAL) => void } = require(plugin.replace(/^@sb\//, './plugins/'));
-          const plug = new Plug();
-          plug.apply(this);
-        } else {
-          const Plug: new (options: NodeJS.Dict<any>) => { apply: (app: SiGNAL) => void } = require(plugin.name.replace(/^@sb\//, './plugins/'));
-          const plug = new Plug(plugin.options);
-          plug.apply(this);
-        }
+        const Plug: new (options: NodeJS.Dict<any>) => { apply: (app: SiGNAL) => void } = require(name.replace(/^@sb\//, './plugins/')).default;
+        const plug = new Plug(options);
+        plug.apply(this);
       } catch (e) {
-        this.logger.error(`Failed to load ${plugin.toString()}`);
-        this.logger.error(e.stack);
+        this.logger.error(`Failed to load ${name}`);
+        this.logger.error(e);
       }
     });
-    this.koa.use(KoaBodyParser());
-    this.koa.use(this.router.routes()).use(this.router.allowedMethods());
-    this.server = http.createServer(this.koa.callback);
-    await this.koishi.start().catch((err) => {
-      this.logger.error('Failed to start koishi');
-      this.logger.error(err.stack);
-      return null;
-    });
-    await this.koishi.getSelfIds();
-    await this.server.listenAsync(this.options.api_port).catch((err) => {
-      this.logger.error('Failed to start http server');
-      this.logger.error(err.stack);
-      return null;
-    });
-  };
 
-  exit = async () => {
-    await this.orm.close();
+    // Start everything
+    await this.koishi.start();
+    await this.koishi.getSelfIds();
+  }
+
+  async exit() {
     await this.koishi.stop();
-    await this.server.closeAsync();
-    this.mineflayer.quit();
     this.mineflayer.end();
     process.exit(0);
-  };
+  }
 }
-
-export default SiGNAL;
