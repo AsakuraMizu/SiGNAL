@@ -693,7 +693,7 @@ cross-spawn@^6.0.5:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-cross-spawn@^7.0.2:
+cross-spawn@^7.0.2, cross-spawn@^7.0.3:
   version "7.0.3"
   resolved "https://registry.npm.taobao.org/cross-spawn/download/cross-spawn-7.0.3.tgz?cache=0&sync_timestamp=1597635878958&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcross-spawn%2Fdownload%2Fcross-spawn-7.0.3.tgz#f73a85b9d5d41d045551c177e2882d4ac85728a6"
   integrity sha1-9zqFudXUHQRVUcF34ogtSshXKKY=
@@ -1900,6 +1900,21 @@ koishi-plugin-mongo@^1.0.0:
   dependencies:
     mongodb "^3.6.0"
 
+koishi-plugin-monitor@1.0.0-beta.14:
+  version "1.0.0-beta.14"
+  resolved "https://registry.npm.taobao.org/koishi-plugin-monitor/download/koishi-plugin-monitor-1.0.0-beta.14.tgz#001bea9b503657d30c27364f6bb3c6ac28f0537f"
+  integrity sha1-ABvqm1A2V9MMJzZPa7PGrCjwU38=
+  dependencies:
+    koishi-utils "^3.1.0"
+
+koishi-plugin-status@2.0.0-beta.13:
+  version "2.0.0-beta.13"
+  resolved "https://registry.npm.taobao.org/koishi-plugin-status/download/koishi-plugin-status-2.0.0-beta.13.tgz#eda690d018b2b4844b8b162c0c7a483e6e9e465d"
+  integrity sha1-7aaQ0BiytIRLixYsDHpIPm6eRl0=
+  dependencies:
+    cross-spawn "^7.0.3"
+    koishi-utils "^3.1.0"
+
 koishi-utils@^3.1.0:
   version "3.1.0"
   resolved "https://registry.npm.taobao.org/koishi-utils/download/koishi-utils-3.1.0.tgz#17a3ec8443139b4be25bc8a47abfcbc1d98da218"
@@ -2219,6 +2234,11 @@ mkdirp@^0.5.1:
   integrity sha1-2Rzv1i0UNsoPQWIOJRKI1CAJne8=
   dependencies:
     minimist "^1.2.5"
+
+modern-rcon@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.npm.taobao.org/modern-rcon/download/modern-rcon-1.0.3.tgz#bf01ba59d3b517c2206fa3cb9ef4e0f805758b52"
+  integrity sha1-vwG6WdO1F8Igb6PLnvTg+AV1i1I=
 
 mojangson@^1.0.0:
   version "1.1.0"

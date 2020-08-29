@@ -27,8 +27,11 @@
     "koishi-adapter-cqhttp": "^1.0.0",
     "koishi-core": "^2.0.0",
     "koishi-plugin-mongo": "^1.0.0",
+    "koishi-plugin-monitor": "1.0.0-beta.14",
+    "koishi-plugin-status": "2.0.0-beta.13",
     "koishi-utils": "^3.1.1",
     "minecraft-protocol-forge": "^1.0.0",
-    "mineflayer": "^2.28.1"
+    "mineflayer": "^2.28.1",
+    "modern-rcon": "^1.0.3"
   }
 }

@@ -57,7 +57,7 @@ export default class SiGNAL {
     // Load Plugins
     Object.entries(this.options.plugins).forEach(([name, options]) => {
       try {
-        const Plug: new (options: NodeJS.Dict<any>) => { apply: (app: SiGNAL) => void } = require(name.replace(/^@sb\//, './plugins/')).default;
+        const Plug: new (options: NodeJS.Dict<any>) => { apply: (app: SiGNAL) => void } = require(`./plugins/${name}`).default;
         const plug = new Plug(options);
         plug.apply(this);
       } catch (e) {
