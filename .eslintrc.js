@@ -9,6 +9,7 @@ module.exports = {
     'global-require': 'off',
     'import/no-dynamic-require': 'off',
     'import/prefer-default-export': 'off',
-    'class-methods-use-this': 'off'
+    'class-methods-use-this': 'off',
+    'max-classes-per-file': 'off'
   }
 };

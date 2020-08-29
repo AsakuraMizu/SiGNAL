@@ -1,5 +1,3 @@
-/* eslint max-classes-per-file: ["error", 2] */
-
 declare module 'modern-rcon' {
   export class RconError extends Error {
     constructor(message: string);
