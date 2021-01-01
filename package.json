@@ -1,39 +1,27 @@
 {
   "name": "sibot",
-  "version": "1.0.0",
-  "bin": "dist/run.js",
-  "main": "dist/main.js",
-  "repository": "https://github.com/AsakuraMizu/SiGNAL",
+  "version": "5.0.0",
+  "main": "koishi.config.js",
+  "repository": "git@github.com:AsakuraMizu/SiGNAL.git",
   "author": "AsakuraMizu <0xWATERx0@gmail.com>",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "node dist/run.js",
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "lint": "eslint src --ext ts",
-    "lint:fix": "eslint src --ext ts --fix"
+    "start": "koishi run"
   },
   "devDependencies": {
-    "@types/node": "^14.6.0",
-    "@typescript-eslint/eslint-plugin": "^3.10.1",
-    "@typescript-eslint/parser": "^3.10.1",
-    "eslint": "^7.7.0",
-    "eslint-config-airbnb-typescript": "^9.0.0",
-    "eslint-plugin-import": "^2.22.0",
-    "typescript": "^4.0.2"
+    "@types/mongodb": "^3.6.3",
+    "typescript": "^4.1.3"
   },
   "dependencies": {
-    "axios": "^0.20.0",
-    "koishi-adapter-cqhttp": "^1.0.0",
-    "koishi-core": "^2.0.0",
-    "koishi-plugin-mongo": "^1.0.0",
-    "koishi-plugin-monitor": "1.0.0-beta.14",
-    "koishi-plugin-status": "2.0.0-beta.13",
-    "koishi-utils": "^3.1.1",
-    "minecraft-protocol-forge": "^1.0.0",
-    "mineflayer": "^2.28.1",
-    "modern-rcon": "^1.0.3",
-    "moment": "^2.27.0"
+    "axios": "^0.21.1",
+    "koishi": "^2.4.3",
+    "koishi-adapter-cqhttp": "^1.0.8",
+    "koishi-plugin-common": "^3.0.3",
+    "koishi-plugin-mongo": "^1.1.3",
+    "koishi-plugin-status": "^2.0.0",
+    "moment": "^2.29.1"
   }
 }

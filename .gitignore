@@ -104,4 +104,5 @@ dist
 .tern-port
 
 # Configuration file
-config.json
+koishi.config.*
+!koishi.config.example.*
