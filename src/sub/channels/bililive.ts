@@ -48,6 +48,7 @@ export class BiliLive extends Channel {
     if (data.room_info.live_status !== 1 && this.startTime.has(id)) {
       const currentTime = utc().unix();
       const duration = unix(currentTime - this.startTime.get(id)).utc().format('HH:mm:ss');
+      this.startTime.delete(id);
       return `🌟 ${data.anchor_info.base_info.uname} 直播 ${data.room_info.title} 结束，总时长 ${duration}`;
     }
 
