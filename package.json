@@ -22,6 +22,6 @@
     "koishi-plugin-common": "^3.0.3",
     "koishi-plugin-mongo": "^1.1.3",
     "koishi-plugin-status": "^2.0.0",
-    "moment": "^2.29.1"
+    "moment": "^2.29.4"
   }
 }
