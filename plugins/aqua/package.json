@@ -1,0 +1,33 @@
+{
+  "name": "@sibot/aqua",
+  "description": "",
+  "version": "0.0.1",
+  "main": "./src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "preprocess": "tsx src/data/process.ts"
+  },
+  "keywords": [
+    "chatbot",
+    "koishi",
+    "plugin"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.12.4"
+  },
+  "dependencies": {
+    "@sibot/xml": "workspace:^",
+    "canvas": "^2.11.2",
+    "escape-goat": "^4.0.0",
+    "got": "^12.6.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "fs-extra": "^11.1.1",
+    "glob": "^10.2.4",
+    "tsx": "^3.12.7"
+  }
+}

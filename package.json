@@ -1,0 +1,28 @@
+{
+  "name": "sibot",
+  "private": "true",
+  "version": "6.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "tsx src/main.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@koishijs/plugin-adapter-onebot": "^5.7.1",
+    "@koishijs/plugin-analytics": "^1.0.3",
+    "@koishijs/plugin-console": "^5.8.0",
+    "@koishijs/plugin-database-sqlite": "^3.4.4",
+    "@koishijs/plugin-dataview": "^2.3.1",
+    "@koishijs/plugin-help": "^2.2.2",
+    "@koishijs/plugin-logger": "^2.2.3",
+    "@koishijs/plugin-sandbox": "^3.1.2",
+    "@koishijs/plugin-status": "^7.1.2",
+    "@sibot/aqua": "workspace:^",
+    "@types/node": "^20.1.4",
+    "koishi": "^4.12.9",
+    "tslib": "^2.5.0",
+    "tsx": "^3.12.7",
+    "typescript": "^5.0.4"
+  }
+}
