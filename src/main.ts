@@ -1,3 +1,8 @@
-import { ctx } from './init';
+import { app } from './init';
 
-ctx.start();
+app.start();
+
+process.on('SIGINT', async () => {
+  await app.stop();
+  process.exit(0);
+});

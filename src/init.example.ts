@@ -1,4 +1,4 @@
-import { Context } from 'koishi';
+import { App } from 'koishi';
 
 // console
 import console from '@koishijs/plugin-console';
@@ -20,28 +20,29 @@ import onebot from '@koishijs/plugin-adapter-onebot';
 // plugins
 import * as aqua from '@sibot/aqua';
 
-export const ctx = new Context({
+export const app = new App({
+  host: '0.0.0.0',
   port: 5140,
   maxPort: 5149,
 });
 
-ctx.plugin(console);
-ctx.plugin(analytics);
-ctx.plugin(dataview);
-ctx.plugin(logger);
-ctx.plugin(sandbox);
+app.plugin(console);
+app.plugin(analytics);
+app.plugin(dataview);
+app.plugin(logger);
+app.plugin(sandbox);
 
-ctx.plugin(help);
-ctx.plugin(status);
+app.plugin(help);
+app.plugin(status);
 
-ctx.plugin(sqlite);
+app.plugin(sqlite);
 
-ctx.plugin(aqua, {
+app.plugin(aqua, {
   aimedb: '127.0.0.1',
   aqua: '127.0.0.1',
 });
 
-ctx.plugin(onebot, {
+app.plugin(onebot, {
   protocol: 'ws',
   selfId: '123456789',
   endpoint: 'ws://127.0.0.1:8000',
