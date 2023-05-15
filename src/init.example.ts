@@ -2,10 +2,14 @@ import { App } from 'koishi';
 
 // console
 import console from '@koishijs/plugin-console';
+import login from '@koishijs/plugin-login';
 import * as analytics from '@koishijs/plugin-analytics';
 import dataview from '@koishijs/plugin-dataview';
 import logger from '@koishijs/plugin-logger';
 import * as sandbox from '@koishijs/plugin-sandbox';
+import explorer from '@koishijs/plugin-explorer';
+import messages from 'koishi-plugin-messages';
+import chat from 'koishi-plugin-chat';
 
 // commands
 import * as help from '@koishijs/plugin-help';
@@ -27,10 +31,14 @@ export const app = new App({
 });
 
 app.plugin(console);
+app.plugin(login);
 app.plugin(analytics);
 app.plugin(dataview);
 app.plugin(logger);
 app.plugin(sandbox);
+app.plugin(explorer);
+app.plugin(messages);
+app.plugin(chat);
 
 app.plugin(help);
 app.plugin(status);

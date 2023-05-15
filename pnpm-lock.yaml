@@ -19,12 +19,18 @@ importers:
       '@koishijs/plugin-dataview':
         specifier: ^2.3.1
         version: 2.3.1(@koishijs/plugin-console@5.8.0)(koishi@4.12.9)
+      '@koishijs/plugin-explorer':
+        specifier: ^1.2.2
+        version: 1.2.2(@koishijs/plugin-console@5.8.0)(koishi@4.12.9)
       '@koishijs/plugin-help':
         specifier: ^2.2.2
         version: 2.2.2(koishi@4.12.9)
       '@koishijs/plugin-logger':
         specifier: ^2.2.3
         version: 2.2.3(@koishijs/plugin-console@5.8.0)(koishi@4.12.9)
+      '@koishijs/plugin-login':
+        specifier: ^3.1.0
+        version: 3.1.0(@koishijs/plugin-console@5.8.0)(koishi@4.12.9)
       '@koishijs/plugin-sandbox':
         specifier: ^3.1.2
         version: 3.1.2(@koishijs/plugin-console@5.8.0)(koishi@4.12.9)
@@ -40,6 +46,12 @@ importers:
       koishi:
         specifier: ^4.12.9
         version: 4.12.9
+      koishi-plugin-chat:
+        specifier: ^4.0.0
+        version: 4.0.0(@koishijs/plugin-console@5.8.0)(koishi-plugin-messages@0.1.0)(koishi@4.12.9)
+      koishi-plugin-messages:
+        specifier: ^0.1.0
+        version: 0.1.0(koishi@4.12.9)
       tslib:
         specifier: ^2.5.0
         version: 2.5.0
@@ -86,9 +98,6 @@ importers:
       glob:
         specifier: ^10.2.4
         version: 10.2.4
-      tsup:
-        specifier: ^6.7.0
-        version: 6.7.0(typescript@5.0.4)
       tsx:
         specifier: ^3.12.7
         version: 3.12.7
@@ -430,6 +439,19 @@ packages:
       koishi: 4.12.9
     dev: false
 
+  /@koishijs/plugin-explorer@1.2.2(@koishijs/plugin-console@5.8.0)(koishi@4.12.9):
+    resolution: {integrity: sha512-hh6rmpuih0wb6KMSIW8VbgkT6phUBHl5XDQkEUyELsEBC/ihSLmpsy6sqkexPdpWajskPqUhhblIAdUJWQwy1A==}
+    peerDependencies:
+      '@koishijs/plugin-console': ^5.7.1
+      koishi: ^4.12.7
+    dependencies:
+      '@koishijs/plugin-console': 5.8.0(koishi@4.12.9)
+      anymatch: 3.1.3
+      chokidar: 3.5.3
+      koishi: 4.12.9
+      throttle-debounce: 3.0.1
+    dev: false
+
   /@koishijs/plugin-help@2.2.2(koishi@4.12.9):
     resolution: {integrity: sha512-fokfz58x4CTdedCRwdIjzu1mr0dU1EtuQOFHAVVMOXgZb+A+0gFGwg1ufqluRbHESUpqMhalK10cyVQT2lYkyw==}
     peerDependencies:
@@ -443,6 +465,16 @@ packages:
     peerDependencies:
       '@koishijs/plugin-console': ^5.3.2
       koishi: ^4.11.6
+    dependencies:
+      '@koishijs/plugin-console': 5.8.0(koishi@4.12.9)
+      koishi: 4.12.9
+    dev: false
+
+  /@koishijs/plugin-login@3.1.0(@koishijs/plugin-console@5.8.0)(koishi@4.12.9):
+    resolution: {integrity: sha512-Lga/xlG5jFOvzHxXw2FjaColkOEXKnaXu1kcRSSuCfK7oosehBTJe+jcZyn7OAUC5IhaOoavUVrLrp/S/OOH8g==}
+    peerDependencies:
+      '@koishijs/plugin-console': ^5.5.4
+      koishi: ^4.12.0
     dependencies:
       '@koishijs/plugin-console': 5.8.0(koishi@4.12.9)
       koishi: 4.12.9
@@ -891,7 +923,6 @@ packages:
     dependencies:
       normalize-path: 3.0.0
       picomatch: 2.3.1
-    dev: true
 
   /aproba@2.0.0:
     resolution: {integrity: sha512-lYe4Gx7QT+MKGbDsA+Z+he/Wtef0BiwDOlK/XkBrdfsh9J/jPPXbX0tE9x9cl27Tmu5gg3QUbUrQYa/y+KOHPQ==}
@@ -938,7 +969,6 @@ packages:
   /binary-extensions@2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
     engines: {node: '>=8'}
-    dev: true
 
   /blueimp-md5@2.19.0:
     resolution: {integrity: sha512-DRQrD6gJyy8FbiE4s+bDoXS9hiW3Vbx5uCdwvcCf3zLHL+Iv7LtGHLpr+GZV8rHG8tK766FGYBwRbu8pELTt+w==}
@@ -961,7 +991,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       fill-range: 7.0.1
-    dev: true
 
   /buffer-from@1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
@@ -1061,7 +1090,6 @@ packages:
       readdirp: 3.6.0
     optionalDependencies:
       fsevents: 2.3.2
-    dev: true
 
   /chownr@2.0.0:
     resolution: {integrity: sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==}
@@ -1406,7 +1434,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       to-regex-range: 5.0.1
-    dev: true
 
   /follow-redirects@1.15.2:
     resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
@@ -1515,7 +1542,6 @@ packages:
     engines: {node: '>= 6'}
     dependencies:
       is-glob: 4.0.3
-    dev: true
 
   /glob@10.2.4:
     resolution: {integrity: sha512-fDboBse/sl1oXSLhIp0FcCJgzW9KmhC/q8ULTKC82zc+DL3TL7FNb8qlt5qqXN53MsKEUSIcb+7DLmEygOE5Yw==}
@@ -1716,7 +1742,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       binary-extensions: 2.2.0
-    dev: true
 
   /is-docker@2.2.1:
     resolution: {integrity: sha512-F+i2BKsFrH66iaUFc0woD8sLy8getkwTwtOBjvs56Cx4CgJDeKQeqfz8wAYiSb8JOprWhHH5p77PbmYCvvUuXQ==}
@@ -1727,7 +1752,6 @@ packages:
   /is-extglob@2.1.1:
     resolution: {integrity: sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==}
     engines: {node: '>=0.10.0'}
-    dev: true
 
   /is-fullwidth-code-point@3.0.0:
     resolution: {integrity: sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==}
@@ -1745,12 +1769,10 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       is-extglob: 2.1.1
-    dev: true
 
   /is-number@7.0.0:
     resolution: {integrity: sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==}
     engines: {node: '>=0.12.0'}
-    dev: true
 
   /is-stream@2.0.1:
     resolution: {integrity: sha512-hFoiJiTl63nn+kstHGBtewWSKnQLpyb155KHheA1l39uvtO9nWIop1p3udqPcUd/xbF1VLMO4n7OI6p7RbngDg==}
@@ -1877,6 +1899,26 @@ packages:
       vary: 1.1.2
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /koishi-plugin-chat@4.0.0(@koishijs/plugin-console@5.8.0)(koishi-plugin-messages@0.1.0)(koishi@4.12.9):
+    resolution: {integrity: sha512-0ieVvD8EBCWvqFwxC6tgfWpn088jlXk+H016j49QOmTKhP5u95oMGQob8MhToJ1hQzP2SHJtnKDrkKkiSPB3fg==}
+    peerDependencies:
+      '@koishijs/plugin-console': ^5.5.5
+      koishi: ^4.12.1
+      koishi-plugin-messages: ^0.1.0
+    dependencies:
+      '@koishijs/plugin-console': 5.8.0(koishi@4.12.9)
+      koishi: 4.12.9
+      koishi-plugin-messages: 0.1.0(koishi@4.12.9)
+    dev: false
+
+  /koishi-plugin-messages@0.1.0(koishi@4.12.9):
+    resolution: {integrity: sha512-E5cyPENbBjCL0Sbr7Ws2bUKHESsiojOwOwgXYyT8FCJZfMQP/rVw5f8ncXyPNHcYLQ02+rl5TYQxGJqdhJnurQ==}
+    peerDependencies:
+      koishi: ^4.12.1
+    dependencies:
+      koishi: 4.12.9
     dev: false
 
   /koishi@4.12.9:
@@ -2128,7 +2170,6 @@ packages:
   /normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
-    dev: true
 
   /normalize-url@8.0.0:
     resolution: {integrity: sha512-uVFpKhj5MheNBJRTiMZ9pE/7hD1QTeEvugSJW/OmLzAp78PB5O6adfMNTvmfKhXBkvCzC+rqifWcVYpGFwTjnw==}
@@ -2258,7 +2299,6 @@ packages:
   /picomatch@2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
-    dev: true
 
   /pirates@4.0.5:
     resolution: {integrity: sha512-8V9+HQPupnaXMA23c5hvl69zXvTwTzyAYasnkb0Tts4XvO4CliqONMOnvlq26rkhLC3nWDFBJf73LU1e1VZLaQ==}
@@ -2371,7 +2411,6 @@ packages:
     engines: {node: '>=8.10.0'}
     dependencies:
       picomatch: 2.3.1
-    dev: true
 
   /reggol@1.3.5:
     resolution: {integrity: sha512-kzkzs4nhZeiphyh+amekq25/3PndZDq+5Yt8qCJqPSyMXPC1pkwhfYCQyJdXxoRz3/uqt0+VqHulagUCVY84vA==}
@@ -2671,6 +2710,11 @@ packages:
       any-promise: 1.3.0
     dev: true
 
+  /throttle-debounce@3.0.1:
+    resolution: {integrity: sha512-dTEWWNu6JmeVXY0ZYoPuH5cRIwc0MeGbJwah9KUNYSJwommQpCzTySTpEe8Gs1J23aeWEuAobe4Ag7EHVt/LOg==}
+    engines: {node: '>=10'}
+    dev: false
+
   /time-zone@1.0.0:
     resolution: {integrity: sha512-TIsDdtKo6+XrPtiTm1ssmMngN1sAhyKnTO2kunQWqNPWIVvCm15Wmw4SWInwTVgJ5u/Tr04+8Ei9TNcw4x4ONA==}
     engines: {node: '>=4'}
@@ -2695,7 +2739,6 @@ packages:
     engines: {node: '>=8.0'}
     dependencies:
       is-number: 7.0.0
-    dev: true
 
   /toidentifier@1.0.1:
     resolution: {integrity: sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==}
