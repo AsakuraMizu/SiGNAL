@@ -23,6 +23,7 @@ import onebot from '@koishijs/plugin-adapter-onebot';
 
 // plugins
 import * as aqua from '@sibot/aqua';
+import * as verifier from 'koishi-plugin-verifier';
 
 export const app = new App({
   host: '0.0.0.0',
@@ -39,6 +40,11 @@ app.plugin(sandbox);
 app.plugin(explorer);
 app.plugin(messages);
 app.plugin(chat);
+app.plugin(verifier, {
+  onFriendRequest: true,
+  onGuildMemberRequest: true,
+  onGuildRequest: true,
+});
 
 app.plugin(help);
 app.plugin(status);

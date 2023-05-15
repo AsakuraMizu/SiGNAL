@@ -52,6 +52,9 @@ importers:
       koishi-plugin-messages:
         specifier: ^0.1.0
         version: 0.1.0(koishi@4.12.9)
+      koishi-plugin-verifier:
+        specifier: ^1.1.1
+        version: 1.1.1(koishi@4.12.9)
       tslib:
         specifier: ^2.5.0
         version: 2.5.0
@@ -1917,6 +1920,14 @@ packages:
     resolution: {integrity: sha512-E5cyPENbBjCL0Sbr7Ws2bUKHESsiojOwOwgXYyT8FCJZfMQP/rVw5f8ncXyPNHcYLQ02+rl5TYQxGJqdhJnurQ==}
     peerDependencies:
       koishi: ^4.12.1
+    dependencies:
+      koishi: 4.12.9
+    dev: false
+
+  /koishi-plugin-verifier@1.1.1(koishi@4.12.9):
+    resolution: {integrity: sha512-kz3wWiqSnTXbz9hqPJmlqG2TAACXP3oq+gjbtPONVKNhR6fF/u+uuOVADk1vLOhBbD1GO/D62NPjFpzlNSnUPg==}
+    peerDependencies:
+      koishi: ^4.10.0
     dependencies:
       koishi: 4.12.9
     dev: false
