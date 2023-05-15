@@ -782,9 +782,9 @@ vary@^1.1.2:
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
 ws@^7.4.0:
-  version "7.4.2"
-  resolved "https://registry.npm.taobao.org/ws/download/ws-7.4.2.tgz?cache=0&sync_timestamp=1609271380166&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fws%2Fdownload%2Fws-7.4.2.tgz#782100048e54eb36fe9843363ab1c68672b261dd"
-  integrity sha1-eCEABI5U6zb+mEM2OrHGhnKyYd0=
+  version "7.5.9"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-7.5.9.tgz#54fa7db29f4c7cec68b1ddd3a89de099942bb591"
+  integrity sha512-F+P9Jil7UiSKSkppIiD94dN07AwvFixvLIj1Og1Rl9GGMuNipJnV9JzjD6XuqmAeiswGvUmNLjr5cFuXwNS77Q==
 
 yallist@^4.0.0:
   version "4.0.0"
