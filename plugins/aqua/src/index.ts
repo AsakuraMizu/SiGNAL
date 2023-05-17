@@ -2,6 +2,7 @@ import { Context, Schema } from 'koishi';
 import API from './api';
 import * as bind from './commands/bind';
 import * as rating from './commands/rating';
+import * as crating from './commands/crating';
 
 export const name = 'aqua';
 export const using = ['database'];
@@ -26,4 +27,5 @@ export function apply(ctx: Context, config: API.Config) {
 
   ctx.plugin(bind);
   ctx.plugin(rating);
+  ctx.plugin(crating);
 }

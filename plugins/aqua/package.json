@@ -8,7 +8,8 @@
   ],
   "license": "MIT",
   "scripts": {
-    "preprocess": "tsx src/data/process.ts"
+    "load": "tsx src/data/load.ts",
+    "cload": "tsx src/data/cload.ts"
   },
   "keywords": [
     "chatbot",
