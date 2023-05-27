@@ -8,7 +8,6 @@ import dataview from '@koishijs/plugin-dataview';
 import logger from '@koishijs/plugin-logger';
 import * as sandbox from '@koishijs/plugin-sandbox';
 import explorer from '@koishijs/plugin-explorer';
-import messages from 'koishi-plugin-messages';
 import chat from 'koishi-plugin-chat';
 
 // commands
@@ -38,7 +37,6 @@ app.plugin(dataview);
 app.plugin(logger);
 app.plugin(sandbox);
 app.plugin(explorer);
-app.plugin(messages);
 app.plugin(chat);
 app.plugin(verifier, {
   onFriendRequest: true,
