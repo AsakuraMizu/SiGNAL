@@ -63,12 +63,18 @@ export interface RequiredR10Item {
   rating: number;
 }
 
-export async function draw(music: MusicData, data: RequiredUserData, b30: RequiredB30Item[], r10: RequiredR10Item[]) {
+export async function draw(
+  music: MusicData,
+  data: RequiredUserData,
+  b30: RequiredB30Item[],
+  r10: RequiredR10Item[],
+  calc_rating = false
+) {
   const b30sum = b30.reduce((sum, { rating }) => sum + rating, 0);
   const b30avg = (Math.floor(b30sum / 30) / 100).toFixed(2);
   const r10sum = r10.reduce((sum, { rating }) => sum + rating, 0);
   const r10avg = (Math.floor(r10sum / 10) / 100).toFixed(2);
-  // const rating = (Math.floor((b30sum + r10sum) / 40) / 100).toFixed(2);
+  const rating = (Math.floor((b30sum + r10sum) / 40) / 100).toFixed(2);
 
   const ranks = Object.fromEntries(
     await Promise.all(
@@ -93,11 +99,15 @@ export async function draw(music: MusicData, data: RequiredUserData, b30: Requir
   // user info
   ctx.font = '24px ' + fontname;
   ctx.fillText(data.level, 202, 65 + 18);
-  ctx.fillText(
-    `${(parseFloat(data.playerRating) / 100).toFixed(2)} (Max ${(parseFloat(data.highestRating) / 100).toFixed(2)})`,
-    241,
-    106 + 22
-  );
+  if (calc_rating) ctx.fillText(rating, 241, 106 + 22);
+  else if (data.highestRating === '-1')
+    ctx.fillText(`${(parseFloat(data.playerRating) / 100).toFixed(2)}`, 241, 106 + 22);
+  else
+    ctx.fillText(
+      `${(parseFloat(data.playerRating) / 100).toFixed(2)} (Max ${(parseFloat(data.highestRating) / 100).toFixed(2)})`,
+      241,
+      106 + 22
+    );
 
   ctx.font = '41px ' + fontname;
   ctx.fillText(data.userName, 246, 47 + 38);

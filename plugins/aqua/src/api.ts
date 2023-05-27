@@ -2,7 +2,7 @@ import { Context, Service } from 'koishi';
 import got from 'got';
 import { getAimeUserId } from './aimedb';
 import { calculateRating } from './utils';
-import { music } from './data';
+import { music, music_sp } from './data';
 
 declare module 'koishi' {
   interface Context {
@@ -116,13 +116,13 @@ class API extends Service {
       }>();
   }
 
-  async r10(userId: number) {
+  async r10(userId: number, sunplus = false) {
     const { userRecentRatingList } = await this.recent(userId);
     return userRecentRatingList
       .map(
         (entry): API.R10Item => ({
           ...entry,
-          rating: calculateRating(music[entry.musicId]?.levels[entry.difficultId] ?? 0, parseInt(entry.score)),
+          rating: calculateRating((sunplus ? music_sp : music)[entry.musicId]?.levels[entry.difficultId] ?? 0, parseInt(entry.score)),
         })
       )
       .sort((a, b) => b.rating - a.rating)
@@ -157,14 +157,14 @@ class API extends Service {
     return userMusicList;
   }
 
-  async b30(userId: number) {
+  async b30(userId: number, sunplus = false) {
     const userMusicList = await this.musicAll(userId);
     return userMusicList
       .flatMap(({ userMusicDetailList }) =>
         userMusicDetailList.map((entry): API.B30Item => {
           return {
             ...entry,
-            rating: calculateRating(music[entry.musicId]?.levels[entry.level] ?? 0, parseInt(entry.scoreMax)),
+            rating: calculateRating((sunplus ? music_sp : music)[entry.musicId]?.levels[entry.level] ?? 0, parseInt(entry.scoreMax)),
           };
         })
       )

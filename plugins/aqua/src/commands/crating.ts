@@ -35,7 +35,7 @@ export function apply(ctx: Context) {
             userName: half2full(result.nickname),
             level: '0',
             playerRating: (result.rating * 100).toString(),
-            highestRating: '0',
+            highestRating: '-1',
           },
           result.records.b30.map((e) => ({
             musicId: e.mid.toString(),

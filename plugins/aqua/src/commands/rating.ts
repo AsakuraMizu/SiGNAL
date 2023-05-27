@@ -1,6 +1,6 @@
 import { Context, h } from 'koishi';
 import { draw } from './draw';
-import { music } from '../data';
+import { music, music_sp } from '../data';
 
 export const name = 'aqua.rating';
 
@@ -8,14 +8,15 @@ export function apply(ctx: Context) {
   ctx
     .command('aqua.rating 查询rating构成')
     .alias('b30')
+    .option('sunplus', '-p')
     .userFields(['userId'])
-    .action(async ({ session }) => {
+    .action(async ({ session, options }) => {
       const userId = session.user.userId;
       if (!userId) return h.quote(session.messageId) + '还妹有绑定帐号！使用 sb 绑卡 <accessCode> 绑定帐号捏';
       const { userData } = await ctx.aqua.userData(userId);
-      const b30 = await ctx.aqua.b30(userId);
-      const r10 = await ctx.aqua.r10(userId);
+      const b30 = await ctx.aqua.b30(userId, options.sunplus);
+      const r10 = await ctx.aqua.r10(userId, options.sunplus);
 
-      return h.image(await draw(music, userData, b30, r10));
+      return h.image(await draw(options.sunplus ? music_sp : music, userData, b30, r10, options.sunplus));
     });
 }
