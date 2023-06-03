@@ -8,14 +8,13 @@ export const name = 'aqua.crating';
 
 export function apply(ctx: Context) {
   ctx
-    .command('aqua.crating 查询rating构成')
+    .command('aqua.crating [user:string] 查询rating构成（国服）')
     .alias('c30')
     .alias('b30c')
-    .action(async ({ session }) => {
+    .action(async ({ session }, user) => {
+      const json = user ? { username: user } : { qq: session.userId };
       const result = await got
-        .post('https://www.diving-fish.com/api/chunithmprober/query/player', {
-          json: { qq: session.userId },
-        })
+        .post('https://www.diving-fish.com/api/chunithmprober/query/player', { json, throwHttpErrors: false })
         .json<DFishAPIResult>();
 
       if ('message' in result) {
