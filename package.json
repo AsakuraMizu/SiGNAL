@@ -4,7 +4,8 @@
   "version": "6.0.0",
   "description": "",
   "scripts": {
-    "dev": "tsx src/main.ts"
+    "dev": "tsx src/main.ts",
+    "dev:watch": "tsx watch --clear-screen=false src/main.ts"
   },
   "author": "",
   "license": "ISC",
