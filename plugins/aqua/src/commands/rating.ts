@@ -13,8 +13,9 @@ export function apply(ctx: Context) {
     .action(async ({ session, options }, user) => {
       let userId: number;
       if (user) {
-        const [ platform, pid ] = user.split(':');;
-        userId = (await ctx.database.getUser(platform, pid)).userId;
+        const [platform, pid] = user.split(':');
+        const u = await ctx.database.getUser(platform, pid);
+        if (u) userId = u.userId;
       } else {
         userId = session.user.userId;
       }
