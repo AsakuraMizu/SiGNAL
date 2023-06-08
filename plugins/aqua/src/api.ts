@@ -1,5 +1,5 @@
 import { Context, Service } from 'koishi';
-import got from 'got';
+import got, { type RetryOptions, type Delays } from 'got';
 import { getAimeUserId } from './aimedb';
 import { calculateRating } from './utils';
 import { music, music_sp } from './data';
@@ -79,6 +79,9 @@ namespace API {
   }
 }
 
+const timeout: Delays = { request: 5000 };
+const retry: Partial<RetryOptions> = { limit: 5 };
+
 class API extends Service {
   private aimedb: string;
   private aqua: string;
@@ -95,8 +98,10 @@ class API extends Service {
 
   async userData(userId: number) {
     return await got
-      .post(`https://${this.aqua}/ChuniServlet/2.10/A0/ChuniServlet/GetUserDataApi/`, {
+      .post(`http://${this.aqua}/ChuniServlet/2.10/A0/ChuniServlet/GetUserDataApi/`, {
         json: { userId: userId.toString() },
+        timeout,
+        retry,
       })
       .json<{
         userId: string;
@@ -106,8 +111,10 @@ class API extends Service {
 
   async recent(userId: number) {
     return await got
-      .post(`https://${this.aqua}/ChuniServlet/2.10/A0/ChuniServlet/GetUserRecentRatingApi/`, {
+      .post(`http://${this.aqua}/ChuniServlet/2.10/A0/ChuniServlet/GetUserRecentRatingApi/`, {
         json: { userId: userId.toString() },
+        timeout,
+        retry,
       })
       .json<{
         userId: string;
@@ -122,7 +129,10 @@ class API extends Service {
       .map(
         (entry): API.R10Item => ({
           ...entry,
-          rating: calculateRating((sunplus ? music_sp : music)[entry.musicId]?.levels[entry.difficultId] ?? 0, parseInt(entry.score)),
+          rating: calculateRating(
+            (sunplus ? music_sp : music)[entry.musicId]?.levels[entry.difficultId] ?? 0,
+            parseInt(entry.score)
+          ),
         })
       )
       .sort((a, b) => b.rating - a.rating)
@@ -131,12 +141,14 @@ class API extends Service {
 
   async music(userId: number, nextIndex: number, maxCount: number) {
     return await got
-      .post(`https://${this.aqua}/ChuniServlet/2.10/A0/ChuniServlet/GetUserMusicApi/`, {
+      .post(`http://${this.aqua}/ChuniServlet/2.10/A0/ChuniServlet/GetUserMusicApi/`, {
         json: {
           userId: userId.toString(),
           nextIndex: nextIndex.toString(),
           maxCount: maxCount.toString(),
         },
+        timeout,
+        retry,
       })
       .json<{
         userId: string;
@@ -164,7 +176,10 @@ class API extends Service {
         userMusicDetailList.map((entry): API.B30Item => {
           return {
             ...entry,
-            rating: calculateRating((sunplus ? music_sp : music)[entry.musicId]?.levels[entry.level] ?? 0, parseInt(entry.scoreMax)),
+            rating: calculateRating(
+              (sunplus ? music_sp : music)[entry.musicId]?.levels[entry.level] ?? 0,
+              parseInt(entry.scoreMax)
+            ),
           };
         })
       )
