@@ -9,6 +9,13 @@ export function apply(ctx: Context) {
     .usage('目前仅支持水服')
     .userFields(['userId'])
     .action(async ({ session }, accessCode) => {
+      if (accessCode.includes('原神')) {
+        session.send(
+          h.image(
+            'https://gchat.qpic.cn/gchatpic_new/2677294549/1091793202-2509998594-0578310DAC7408467F5E797BCBC35915/0'
+          )
+        );
+      }
       if (accessCode.length !== 20 || Number.isNaN(Number(accessCode))) {
         return h('message', h.at(session.userId), '卡号是20位数字，你输的是牛魔酬宾');
       }
