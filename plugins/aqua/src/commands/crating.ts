@@ -1,6 +1,6 @@
 import { Context, h } from 'koishi';
 import got from 'got';
-import { draw } from './draw';
+import { draw } from '../common/draw';
 import { cmusic } from '../data';
 import { calculateRating } from '../utils';
 

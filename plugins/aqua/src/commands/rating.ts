@@ -1,5 +1,5 @@
 import { Context, h } from 'koishi';
-import { draw } from './draw';
+import { draw } from '../common/draw';
 import { music, music_sp } from '../data';
 
 export const name = 'aqua.rating';
