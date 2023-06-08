@@ -3,6 +3,7 @@ import API from './api';
 import * as bind from './commands/bind';
 import * as rating from './commands/rating';
 import * as crating from './commands/crating';
+import * as rank from './commands/rank';
 
 export const name = 'aqua';
 export const using = ['database'];
@@ -28,4 +29,5 @@ export function apply(ctx: Context, config: API.Config) {
   ctx.plugin(bind);
   ctx.plugin(rating);
   ctx.plugin(crating);
+  ctx.plugin(rank);
 }
