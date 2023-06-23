@@ -23,12 +23,12 @@
     "@sibot/xml": "workspace:^",
     "canvas": "^2.11.2",
     "escape-goat": "^4.0.0",
-    "got": "^12.6.0"
+    "got": "^13.0.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.1",
     "fs-extra": "^11.1.1",
-    "glob": "^10.2.4",
+    "glob": "^10.2.7",
     "tsx": "^3.12.7"
   }
 }

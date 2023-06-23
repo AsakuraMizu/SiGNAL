@@ -30,12 +30,18 @@ namespace API {
     characterId: string;
     trophyId: string;
     totalMapNum: string;
+    totalBasicHighScore: string;
+    totalAdvancedHighScore: string;
+    totalExpertHighScore: string;
+    totalMasterHighScore: string;
+    totalUltimaHighScore: string;
     totalHiScore: string;
     friendCount: string;
     lastGameId: string;
     lastRomVersion: string;
     lastDataVersion: string;
     lastPlayDate: string;
+    overPowerPoint: string;
   }
 
   export interface UserRecentRating {

@@ -7,6 +7,9 @@
     "declaration": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "moduleResolution": "node"
+    "moduleResolution": "Node",
+    "paths": {
+      "got": ["./node_modules/got/dist/source"]
+    }
   }
 }

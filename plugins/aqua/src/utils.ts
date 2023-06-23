@@ -29,4 +29,4 @@ export function getRank(score: number) {
 }
 
 export const levelNames = ['BASIC', 'ADVANCED', 'EXPERT', 'MASTER', 'ULTIMA', "WORLD'S END"];
-export const levelNamesShort = ['BAS', 'ADV', 'EXP', 'MAS', 'ULT', "WE"];
+export const levelNamesShort = ['BAS', 'ADV', 'EXP', 'MAS', 'ULT', 'WE'];

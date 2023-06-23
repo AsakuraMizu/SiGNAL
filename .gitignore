@@ -1,4 +1,4 @@
 node_modules
-data
-logs
-accounts
+/data
+/logs
+/accounts

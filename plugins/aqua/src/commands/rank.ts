@@ -22,6 +22,10 @@ export function apply(ctx: Context) {
         const userId = u.userId;
         if (!userId) continue;
         const { userData } = await ctx.aqua.userData(userId);
+        if (!userData) {
+          console.log(userId);
+          continue;
+        }
         result.push({
           name: users[pid],
           pid: pid,
@@ -32,6 +36,7 @@ export function apply(ctx: Context) {
       return (
         `群排行榜 (第${page}页):\n` +
         result
+          .sort((a, b) => b.ratingMax - a.ratingMax)
           .sort((a, b) => b.rating - a.rating)
           .slice(10 * (page - 1), 10 * page)
           .map((e, i) => `#${10 * (page - 1) + i + 1}: ${e.name}(${e.pid}) ${e.rating.toFixed(2)}(Max ${e.ratingMax.toFixed(2)})`)

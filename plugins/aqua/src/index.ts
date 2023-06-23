@@ -4,6 +4,7 @@ import * as bind from './commands/bind';
 import * as rating from './commands/rating';
 import * as crating from './commands/crating';
 import * as rank from './commands/rank';
+import * as random from './commands/random';
 
 export const name = 'aqua';
 export const using = ['database'];
@@ -30,4 +31,5 @@ export function apply(ctx: Context, config: API.Config) {
   ctx.plugin(rating);
   ctx.plugin(crating);
   ctx.plugin(rank);
+  ctx.plugin(random);
 }
