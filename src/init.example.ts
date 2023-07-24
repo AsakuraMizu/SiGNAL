@@ -21,7 +21,6 @@ import sqlite from '@koishijs/plugin-database-sqlite';
 import onebot from '@koishijs/plugin-adapter-onebot';
 
 // plugins
-import * as aqua from '@sibot/aqua';
 import * as verifier from 'koishi-plugin-verifier';
 
 export const app = new App({
@@ -48,11 +47,6 @@ app.plugin(help);
 app.plugin(status);
 
 app.plugin(sqlite);
-
-app.plugin(aqua, {
-  aimedb: '127.0.0.1',
-  aqua: '127.0.0.1',
-});
 
 app.plugin(onebot, {
   protocol: 'ws',
