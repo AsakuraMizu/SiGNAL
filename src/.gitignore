@@ -1,16 +1,1 @@
-node_modules
-npm-debug.log
-yarn-debug.log
-yarn-error.log
-tsconfig.tsbuildinfo
-.vite
-
-.eslintcache
-.DS_Store
-.idea
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-
 init.ts
