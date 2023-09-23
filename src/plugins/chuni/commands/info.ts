@@ -32,7 +32,7 @@ export function apply(ctx: Context) {
                 ).toFixed(1)}`
             )
             .join('\n'),
-        h.image(ctx.chuniData.storage.from('jacket').getPublicUrl(`webp/${id}.webp`).data.publicUrl)
+        h.image(`https://chuni-jackets.oss-cn-hongkong-internal.aliyuncs.com/jpg/${id}.jpg`)
       );
     });
 }

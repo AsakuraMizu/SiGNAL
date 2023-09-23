@@ -35,7 +35,7 @@ export async function draw(
   const musicData = resp.data;
 
   const loadJaket = (id: number) =>
-    loadImage(chuniData.storage.from('jacket').getPublicUrl(`jpg/${id}.jpg`).data.publicUrl);
+    loadImage(`https://chuni-jackets.oss-cn-hongkong-internal.aliyuncs.com/jpg/${id}.jpg`);
 
   const { b30avg, r10avg, rating, ratingAchievable } = calcRatingAvg(b30, r10);
 
