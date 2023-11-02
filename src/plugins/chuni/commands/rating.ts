@@ -1,16 +1,14 @@
 import { Context, h } from 'koishi';
-import { PromisePool } from '@supercharge/promise-pool';
 import { draw, type RequiredUserData } from '../draw';
 import {
   calcRatingList,
   type RatingItem,
   type GameVer,
-  preparePlaylogList,
   findMusicId,
-  type PlaylogItem,
 } from '../utils';
 import * as dfish from '../apis/dfish';
-import { OtogameAPIClient } from '../apis/otogame';
+import { OtogameAPIClient, type OtogameChunithmRatingEntry } from '../apis/otogame';
+import { FetchError } from 'ofetch';
 
 export const name = 'chuni.rating';
 
@@ -31,6 +29,7 @@ export function apply(ctx: Context) {
     .alias('b30')
     .option('mode', '-m <mode:string> 查询模式 默认为hdd', { fallback: 'hdd' })
     .option('server', '-s <server:string> hdd模式下指定服务器 默认为samnya', { fallback: 'samnya' })
+    .option('flag', '-f', { hidden: true, fallback: false })
     .example('b30 查询samnya服b30')
     .example('b30 -m hdd -s samnya 查询samnya服b30')
     .example('b30 -m hddjp 查询samnya服b30，使用日服定数')
@@ -42,6 +41,7 @@ export function apply(ctx: Context) {
     .example('b30 -m oto 查询大饼b30')
     .example('b30o 查询大饼b30')
     .shortcut('b30o', { options: { mode: 'oto' } })
+    .shortcut('b30o0', { options: { mode: 'oto', flag: true } })
     .userFields(['aimeUserIdList', 'otogameTokens'])
     .action(async ({ session, options }, user) => {
       let userData: RequiredUserData;
@@ -99,24 +99,30 @@ export function apply(ctx: Context) {
             ratingMax: profile.highest_rating / 100,
           };
 
-          const playlog = await otogame.chunithmPlaylogAll();
-          const { best, recent } = await preparePlaylogList(
-            (
-              await PromisePool.for(playlog).process(async (e) => ({
-                playDate: e.play_date,
-                musicId: await findMusicId(ctx.chuniData, e.music.name, e.music.artist),
-                diff: e.difficulty,
-                score: e.score,
-                fc: e.is_full_combo,
-                aj: e.is_all_justice,
-              }))
-            ).results.filter((e) => !!e.musicId) as PlaylogItem[]
-          );
-          b30 = await calcRatingList(ctx.chuniData, best, 30, 'jp');
-          r10 = await calcRatingList(ctx.chuniData, recent, 10, 'jp');
+          const ratingLists = await otogame.chunithmRating();
+          const calc = async ({ difficulty, music, score, rating }: OtogameChunithmRatingEntry) => {
+            const musicId = await findMusicId(ctx.chuniData, music.name, music.artist);
+            if (!musicId) throw `${music.name} (${music.artist}) not found`;
+            return {
+              musicId,
+              diff: difficulty,
+              score,
+              rating: rating / 100,
+              levelBase: (
+                await ctx.chuniData.from('chart').select('const_jp').eq('music_id', musicId).eq('diff', difficulty)
+              ).data![0].const_jp!,
+            };
+          };
+          b30 = await Promise.all(ratingLists.base_rating_list.map(calc));
+          r10 = await Promise.all(ratingLists.hot_rating_list.map(calc));
 
           session!.user!.otogameTokens = otogame.tokens;
         } catch (e) {
+          if (e instanceof FetchError) {
+            const err = await e.data;
+            if (err.code === 'charge-03' || err.message === 'no premium plan')
+              return h('message', h.quote(session.messageId), 'otogame丁真, 鉴定为没买帝企鹅');
+          }
           console.error(e);
           return h('message', h.quote(session.messageId), '查询失败, 请重试或尝试重新绑定');
         }

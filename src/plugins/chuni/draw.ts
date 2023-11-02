@@ -1,7 +1,7 @@
 import type { Context } from 'koishi';
 import { join } from 'node:path';
 import { createCanvas, loadImage, type Image } from 'canvas';
-import { levelNamesShort, type GameVer } from './utils';
+import { levelNamesShort, jacketUrl } from './utils';
 import { getRank } from './utils';
 import { type RatingItem, calcRatingAvg } from './utils';
 
@@ -34,8 +34,7 @@ export async function draw(
   }
   const musicData = resp.data;
 
-  const loadJaket = (id: number) =>
-    loadImage(`https://chuni-jackets.oss-cn-hongkong-internal.aliyuncs.com/jpg/${id}.jpg`);
+  const loadJaket = (id: number) => loadImage(jacketUrl(id));
 
   const { b30avg, r10avg, rating, ratingAchievable } = calcRatingAvg(b30, r10);
 
@@ -51,7 +50,7 @@ export async function draw(
 
   const canvas = createCanvas(1470, 1450);
   const ctx = canvas.getContext('2d');
-  const fontname = '"Noto Sans CJK JP Medium"';
+  const fontname = '"Noto Sans CJK JP Medium", "Noto Sans CJK SC Medium"';
 
   ctx.textBaseline = 'alphabetic';
   ctx.lineWidth = 1;
@@ -65,7 +64,7 @@ export async function draw(
   ctx.fillText(
     `${(userData.rating ?? rating).toFixed(2)} ${
       userData.ratingMax ? `(Max ${userData.ratingMax.toFixed(2)})` : ''
-    } (< ${ratingAchievable.toFixed(2)})`,
+    } (→ ${ratingAchievable.toFixed(2)})`,
     241,
     106 + 22
   );
@@ -92,7 +91,7 @@ export async function draw(
       return;
     }
     const lvl = e.levelBase.toFixed(1);
-    const ra = e.rating.toFixed(2);
+    const ra = (Math.round(e.rating * 100) / 100).toFixed(2);
     const rank = getRank(e.score);
 
     ctx.drawImage(await loadJaket(e.musicId), bx, by, 105, 105);

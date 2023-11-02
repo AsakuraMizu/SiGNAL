@@ -1,5 +1,5 @@
 import { Context, h } from 'koishi';
-import { levelNames } from '../utils';
+import { jacketUrl, levelNames } from '../utils';
 
 export const name = 'chuni.info';
 
@@ -32,7 +32,7 @@ export function apply(ctx: Context) {
                 ).toFixed(1)}`
             )
             .join('\n'),
-        h.image(`https://chuni-jackets.oss-cn-hongkong-internal.aliyuncs.com/jpg/${id}.jpg`)
+        h.image(jacketUrl(id))
       );
     });
 }

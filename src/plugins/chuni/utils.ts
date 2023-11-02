@@ -54,7 +54,7 @@ export interface PlaylogItem {
   aj?: boolean;
 }
 
-export async function preparePlaylogList(list: PlaylogItem[]) {
+export async function prepareBestList(list: PlaylogItem[]) {
   const best = new Map<number, PlaylogItem>();
   list.forEach((e) => {
     const id = e.musicId * 10 + e.diff;
@@ -62,11 +62,7 @@ export async function preparePlaylogList(list: PlaylogItem[]) {
       best.set(id, e);
     }
   });
-  const recent = list.sort((a, b) => b.playDate - a.playDate).slice(0, 30);
-  return {
-    best: [...best.values()],
-    recent,
-  };
+  return [...best.values()];
 }
 
 export async function findMusicId(
@@ -121,3 +117,7 @@ export function getRank(score: number) {
 
 export const levelNames = ['BASIC', 'ADVANCED', 'EXPERT', 'MASTER', 'ULTIMA', "WORLD'S END"];
 export const levelNamesShort = ['BAS', 'ADV', 'EXP', 'MAS', 'ULT', 'WE'];
+
+export function jacketUrl(id: number) {
+  return `https://chuni-jackets.oss-cn-hongkong.aliyuncs.com/jpg/${id}.jpg`;
+}

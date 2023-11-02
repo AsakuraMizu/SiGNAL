@@ -1,4 +1,4 @@
-import { ofetch, type $Fetch } from 'ofetch';
+import { ofetch } from 'ofetch';
 import { PromisePool } from '@supercharge/promise-pool';
 
 export interface OtogameApiResult<T> {
@@ -6,6 +6,22 @@ export interface OtogameApiResult<T> {
   message: string;
   data: T;
   timestamp: number;
+}
+
+export interface OtogameChunithmRatingEntry {
+  difficulty: number;
+  music: {
+    music_id: string;
+    name: string;
+    artist: string;
+    jacket: string;
+    level_info: {
+      difficulty: number;
+      level: number;
+    };
+  };
+  score: number;
+  rating: number;
 }
 
 export interface OtogameChunithmPlaylogEntry {
@@ -122,6 +138,25 @@ export class OtogameAPIClient {
             highest_rating: number;
           }>
         >('https://v2.otogame.net/api/game/chunithm/profile', {
+          headers: this.headers,
+        })
+      ).data;
+    });
+  }
+
+  async chunithmRating() {
+    return await this.makeRequest(async () => {
+      return (
+        await ofetch<
+          OtogameApiResult<{
+            rating: number;
+            base_rating: number;
+            hot_rating: number;
+            base_rating_list: OtogameChunithmRatingEntry[];
+            hot_rating_list: OtogameChunithmRatingEntry[];
+            next_rating_list: OtogameChunithmRatingEntry[];
+          }>
+        >('https://v2.otogame.net/api/game/chunithm/rating', {
           headers: this.headers,
         })
       ).data;
