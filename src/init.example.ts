@@ -2,7 +2,7 @@ import { App } from 'koishi';
 
 // console
 import console from '@koishijs/plugin-console';
-import login from '@koishijs/plugin-login';
+import auth from '@koishijs/plugin-auth';
 import * as analytics from '@koishijs/plugin-analytics';
 import dataview from '@koishijs/plugin-dataview';
 import logger from '@koishijs/plugin-logger';
@@ -30,7 +30,7 @@ export const app = new App({
 });
 
 app.plugin(console);
-app.plugin(login);
+app.plugin(auth);
 app.plugin(analytics);
 app.plugin(dataview);
 app.plugin(logger);
